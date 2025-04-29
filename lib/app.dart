@@ -17,6 +17,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'pages/tips_page.dart';
 import 'widgets/today_tip.dart';
+import 'dart:io';
+import 'repositories/diary_repo.dart';
+import 'models/diary.dart';
+import 'pages/diary_page.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -50,7 +54,7 @@ class _RootPageState extends State<RootPage> {
           });
         }),
         
-        const Placeholder(), // Dairy
+        const DiaryPage(), // Dairy
         const TipsPage(), // Tips
         const Placeholder(), // Shop
       ];
@@ -307,6 +311,15 @@ class _CameraPageState extends State<CameraPage> {
       final jsonStr = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
       final data = json.decode(jsonStr) as Map<String, dynamic>;
       await LocalStore.save(data);
+      final memo = await _askMemo();       // ユーザーにメモ入力を求める
+      if (memo != null && memo.isNotEmpty) {
+        final imgPath = await DiaryRepo.saveImage(File(xfile.path));
+        await DiaryRepo.add(Diary(
+          id: DateTime.now().toIso8601String(),
+          image: imgPath,
+          memo: memo,
+        ));
+      }
 
       FirebaseAnalytics.instance.logEvent(
         name: 'capture_diagnosis',
@@ -322,6 +335,25 @@ class _CameraPageState extends State<CameraPage> {
     } finally {
       if (mounted) setState(() => busy = false);
     }
+  }
+
+  Future<String?> _askMemo() async {
+    String tmp = '';
+    return showDialog<String>(
+      context: context,
+      builder: (c) => AlertDialog(
+        title: const Text('メモを追加'),
+        content: TextField(
+          autofocus: true,
+          onChanged: (v) => tmp = v,
+          decoration: const InputDecoration(hintText: '例）今日は気温25℃'),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(c), child: const Text('キャンセル')),
+          ElevatedButton(onPressed: () => Navigator.pop(c, tmp), child: const Text('保存')),
+        ],
+      ),
+    );
   }
 
   @override
