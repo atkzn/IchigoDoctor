@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849655606704",
+    "project_id": "berryapp-e4d54",
+    "storage_bucket": "berryapp-e4d54.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849655606704:android:eeb4ffd1376f9c588c7a75",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849655606704-t56apnkb6bu9lsfunhtqmq1c9a5cbfdq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWB-7KBmvRgwDxAOKlfNmCJaxn-nzU6cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849655606704-t56apnkb6bu9lsfunhtqmq1c9a5cbfdq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

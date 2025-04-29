@@ -1,0 +1,6 @@
+{
+  "@@locale": "en",
+  "appTitle": "BabyBerry",
+  "homeToday": "Today is {day} days!",
+  "waterReminder": "Watering Reminder set at {time}"
+}

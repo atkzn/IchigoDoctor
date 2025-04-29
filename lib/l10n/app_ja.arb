@@ -1,0 +1,6 @@
+{
+  "@@locale": "ja",
+  "appTitle": "ベビイチゴ診断",
+  "homeToday": "今日は{day}日目！",
+  "waterReminder": "水やりリマインダーを{time}に設定しました"
+}
