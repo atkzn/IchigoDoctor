@@ -125,3 +125,5 @@ flutter:
     - assets/lottie/stage5.json
     - assets/lottie/stage6.json
     - assets/lottie/stage7.json
+    # tips
+    - assets/tips.json

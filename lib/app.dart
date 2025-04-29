@@ -15,7 +15,8 @@ import 'package:provider/provider.dart';
 import 'theme_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
+import 'pages/tips_page.dart';
+import 'widgets/today_tip.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -28,26 +29,6 @@ class BerryApp extends StatelessWidget {
   }
 }
 
-/*
-class BerryApp extends StatelessWidget {
-  final Map<String, dynamic>? initialData;
-  const BerryApp({super.key, this.initialData});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ベビイチゴ診断',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: const Color(0xFFAF3F3F),
-        scaffoldBackgroundColor: const Color(0xFFFAF2D8),
-        textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
-      ),
-      home: RootPage(initialData: initialData),
-    );
-  }
-}
-*/
 
 class RootPage extends StatefulWidget {
   final Map<String, dynamic>? initialData;
@@ -68,9 +49,10 @@ class _RootPageState extends State<RootPage> {
             _index = 0;
           });
         }),
-        const Placeholder(),
-        const Placeholder(),
-        const Placeholder(),
+        
+        const Placeholder(), // Dairy
+        const TipsPage(), // Tips
+        const Placeholder(), // Shop
       ];
 
   @override
@@ -142,7 +124,9 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            // ── キャラクター＋日数バッジ ──
+            const TodayTip(),
+            const SizedBox(height: 12),
+           // ── キャラクター＋日数バッジ ──
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -240,116 +224,6 @@ class _HomePageState extends State<HomePage> {
       };
 
 }
-
-
-/*
-class HomePage extends StatelessWidget {
-  final Map<String, dynamic>? data;
-  const HomePage({Key? key, this.data}) : super(key: key);
-
-  Map<String, dynamic> get _dummy => {
-        'growthDaysEst': '21-25',
-        'daysToFlower': '20-25',
-        'daysToHarvest': '35-45',
-        'growthStatus': '良好',
-        'disease': 'なし',
-        'careTips': [
-          '水やり：土表面が乾いたらたっぷり',
-          '追肥：液肥1000倍を週1',
-          'ランナー整理：不要ランナーを切除',
-        ]
-      };
-
-  @override
-  Widget build(BuildContext context) {
-    final d = data ?? _dummy;                         // ← 変数宣言を最初に
-    final String day = d['growthDaysEst'];            // ← day もここで
-    //final today = DateFormat.MMMd('ja').format(DateTime.now());
-    return Scaffold(                             // ← Scaffold を追加
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.appTitle),     // 多言語タイトル
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.brightness_6),
-            onPressed: () => context.read<ThemeModel>().toggle(),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Center(
-                  child: Image.asset('assets/characters/fairy.png', height: 200),
-                ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFAF2D8),
-                      border: Border.all(color: const Color(0xFFCFC2A0)),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(day,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Center(
-              child: Text(
-                AppLocalizations.of(context)!.homeToday(day),     // ← 多言語化
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ),
-            const SizedBox(height: 8),
-            StatusCard(data: d),
-            const Divider(),
-            CareCard(careTips: d['careTips']),
-            const SizedBox(height: 12),  // 少し余白を入れます
-            ElevatedButton(
-              onPressed: () {
-                final time = "08:00";
-                // 水やりを毎日8:00に通知するスケジュールを登録
-                NotificationService.scheduleDailyReminder(
-                  id: 1,
-                  title: '水やりの時間です',
-                  body: '土表面が乾いたらたっぷり水をあげましょう',
-                  hour: 8,
-                  minute: 0,
-                );
-                // 設定完了を画面下部に一瞬だけ表示
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(AppLocalizations.of(context)!.waterReminder(time))),
-                );
-              },
-              child: const Text('水やりリマインダー設定'),
-            ),
-            SizedBox(
-              height: 60,
-              child: AdWidget(
-                ad: BannerAd(
-                  adUnitId: 'ca-app-pub-3940256099942544/6300978111', // テスト用
-                  size: AdSize.banner,
-                  request: const AdRequest(),
-                  listener: BannerAdListener(),
-                )..load(),
-              ),
-            ),
-          ],
-        ),
-      )
-    );
-  }
-}
-*/
 
 class CameraPage extends StatefulWidget {
   final ValueChanged<Map<String, dynamic>> onResult;
