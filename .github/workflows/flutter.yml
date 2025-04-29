@@ -17,7 +17,7 @@ jobs:
       - run: flutter pub get
       - run: echo "GEMINI_KEY=${{ secrets.GEMINI_KEY }}" >> $GITHUB_ENV
       - run: flutter build apk --release --dart-define=GEMINI_KEY=${{ env.GEMINI_KEY }}
-      - uses: actions/upload-artifact@v3.1.2
+      - uses: actions/upload-artifact@v2
         with:
           name: BabyBerry-APK
           path: build/app/outputs/flutter-apk/app-release.apk
