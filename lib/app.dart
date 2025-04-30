@@ -21,6 +21,7 @@ import 'dart:io';
 import 'repositories/diary_repo.dart';
 import 'models/diary.dart';
 import 'pages/diary_page.dart';
+import 'pages/setting_page.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -57,6 +58,7 @@ class _RootPageState extends State<RootPage> {
         const DiaryPage(), // Dairy
         const TipsPage(), // Tips
         const Placeholder(), // Shop
+        const SettingsPage(), // Setting
       ];
 
   @override
@@ -71,6 +73,7 @@ class _RootPageState extends State<RootPage> {
             NavigationDestination(icon: Icon(Icons.book), label: 'Diary'),
             NavigationDestination(icon: Icon(Icons.lightbulb), label: 'Tips'),
             NavigationDestination(icon: Icon(Icons.shopping_cart), label: 'Shop'),
+            NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
           ],
         ),
       );
