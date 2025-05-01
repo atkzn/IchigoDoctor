@@ -28,4 +28,12 @@ class DiaryRepo {
     final dst = File('${dir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg');
     return await src.copy(dst.path).then((f) => f.path);
   }
+
+  /// 保存済み Diary のうち最新（最初に insert しているので index 0）
+  static Future<Diary?> latest() async {
+    final list = await load();
+    return list.isNotEmpty ? list.first : null;
+  }
+
+
 }

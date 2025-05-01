@@ -26,6 +26,7 @@ import 'pages/calendar_page.dart';
 import 'services/care_logic.dart';
 import 'repositories/care_repo.dart';   // 撮影後イベント生成用
 import 'models/care_event.dart';
+import 'widgets/latest_header.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -137,6 +138,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             const TodayTip(),
             const SizedBox(height: 12),
+            /*
            // ── キャラクター＋日数バッジ ──
             Stack(
               clipBehavior: Clip.none,
@@ -163,6 +165,24 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            */
+            const LatestHeader(),   // ← 新しいヘッダ
+            // 日数バッジは下に残す
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                margin: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFAF2D8),
+                  border: Border.all(color: const Color(0xFFCFC2A0)),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Text(day, style: const TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+
+
             const SizedBox(height: 12),
 
             // ── メインテキスト ──
@@ -285,6 +305,7 @@ class _CameraPageState extends State<CameraPage> {
       setState(() => busy = false);
       return;
     }
+
 
     // ── ②既存の診断プロセス（stage/disease JSON 取得など） ──
     final key = const String.fromEnvironment('GEMINI_KEY');
