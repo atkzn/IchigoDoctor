@@ -274,6 +274,19 @@ class _CameraPageState extends State<CameraPage> {
 
     final xfile = await ctrl.takePicture();
     final b64 = base64Encode(await xfile.readAsBytes());
+
+    // ── ①まずイチゴ判定 ──
+    final ok = await _isStrawberry(b64);
+    if (!ok) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('イチゴが検出できません。もう一度撮影してください')));
+      }
+      setState(() => busy = false);
+      return;
+    }
+
+    // ── ②既存の診断プロセス（stage/disease JSON 取得など） ──
     final key = const String.fromEnvironment('GEMINI_KEY');
     final uri =
         'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key';
@@ -393,6 +406,38 @@ class _CameraPageState extends State<CameraPage> {
       if (mounted) setState(() => busy = false);
     }
   }
+
+
+  Future<bool> _isStrawberry(String base64) async {
+    final key = const String.fromEnvironment('GEMINI_KEY');
+    const detectPrompt = '''
+  あなたは画像判定AIです。
+  この画像に「イチゴ（苗・株・果実）」が **主要な被写体として** 写っているか判定し、
+  必ず {"isStrawberry":true} もしくは {"isStrawberry":false} だけを返してください。
+  ''';
+    final uri =
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key';
+    final body = {
+      "contents": [
+        {
+          "parts": [
+            {"text": detectPrompt},
+            {"inlineData": {"mimeType": "image/jpeg", "data": base64}}
+          ]
+        }
+      ]
+    };
+    final res = await http.post(Uri.parse(uri),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(body));
+    final raw = json.decode(res.body);
+    final txt = raw['candidates'][0]['content']['parts'][0]['text'] as String;
+    final jsonStr = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
+    final obj = json.decode(jsonStr) as Map<String, dynamic>;
+    return obj['isStrawberry'] as bool;
+  }
+
+
 
   Future<String?> _askMemo() async {
     String tmp = '';
