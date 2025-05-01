@@ -23,6 +23,7 @@ import 'models/diary.dart';
 import 'pages/diary_page.dart';
 import 'pages/setting_page.dart';
 import 'pages/calendar_page.dart';
+import 'services/care_logic.dart';
 import 'repositories/care_repo.dart';   // 撮影後イベント生成用
 import 'models/care_event.dart';
 
@@ -317,6 +318,7 @@ class _CameraPageState extends State<CameraPage> {
       final jsonStr = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
       final data = json.decode(jsonStr) as Map<String, dynamic>;
 
+/*
       final today = DateTime.now();
       await CareRepo.add(CareEvent(
         //date: today.add(const Duration(days: 0)),  // 今日 水やり
@@ -342,7 +344,15 @@ class _CameraPageState extends State<CameraPage> {
           type: CareType.pollination,
         ));
       }
-
+*/
+      final today = DateTime.now();
+      final stage = data['stage'] as String;
+      final events = CareLogic.eventsForStage(stage, today);
+      // 既存イベントをクリアしてから登録するなら、以下を事前に実行
+      await CareRepo.clearAll();
+      for (final e in events) {
+        await CareRepo.add(e);
+      }
 
       await LocalStore.save(data);
       final memo = await _askMemo();       // ユーザーにメモ入力を求める

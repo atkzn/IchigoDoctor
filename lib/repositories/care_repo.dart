@@ -78,4 +78,10 @@ class CareRepo {
     );
   }
 
+  /// すべての CareEvent を削除
+  static Future<void> clearAll() async {
+    final sp = await SharedPreferences.getInstance();
+    await sp.remove(_key);
+  }
+
 }
