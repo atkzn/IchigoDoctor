@@ -22,6 +22,9 @@ import 'repositories/diary_repo.dart';
 import 'models/diary.dart';
 import 'pages/diary_page.dart';
 import 'pages/setting_page.dart';
+import 'pages/calendar_page.dart';
+import 'repositories/care_repo.dart';   // 撮影後イベント生成用
+import 'models/care_event.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -55,9 +58,9 @@ class _RootPageState extends State<RootPage> {
           });
         }),
         
-        const DiaryPage(), // Dairy
+        const CalendarPage(), // Dairy
         const TipsPage(), // Tips
-        const Placeholder(), // Shop
+        //const Placeholder(), // Shop
         const SettingsPage(), // Setting
       ];
 
@@ -72,7 +75,7 @@ class _RootPageState extends State<RootPage> {
             NavigationDestination(icon: Icon(Icons.camera_alt), label: 'Camera'),
             NavigationDestination(icon: Icon(Icons.book), label: 'Diary'),
             NavigationDestination(icon: Icon(Icons.lightbulb), label: 'Tips'),
-            NavigationDestination(icon: Icon(Icons.shopping_cart), label: 'Shop'),
+            //NavigationDestination(icon: Icon(Icons.shopping_cart), label: 'Shop'),
             NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
           ],
         ),
@@ -313,6 +316,18 @@ class _CameraPageState extends State<CameraPage> {
           raw['candidates'][0]['content']['parts'][0]['text'] as String;
       final jsonStr = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
       final data = json.decode(jsonStr) as Map<String, dynamic>;
+
+      final today = DateTime.now();
+      await CareRepo.add(CareEvent(
+        date: today.add(const Duration(days: 0)),  // 今日 水やり
+        type: CareType.water,
+      ));
+      await CareRepo.add(CareEvent(
+        date: today.add(const Duration(days: 7)),  // 7日後 追肥
+        type: CareType.fertilize,
+      ));
+
+
       await LocalStore.save(data);
       final memo = await _askMemo();       // ユーザーにメモ入力を求める
       if (memo != null && memo.isNotEmpty) {

@@ -7,7 +7,11 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
 
 class NotificationService {
-  static final _local = FlutterLocalNotificationsPlugin();
+
+  static final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  //static final _local = FlutterLocalNotificationsPlugin();
   static const _channel = AndroidNotificationChannel(
     'reminder_channel', 'リマインダー通知',
     description: '水やり・追肥等のお知らせ',
@@ -26,12 +30,12 @@ class NotificationService {
       requestBadgePermission: true,
       requestSoundPermission: true,
     );
-    await _local.initialize(
+    await _flutterLocalNotificationsPlugin.initialize(
       const InitializationSettings(android: androidInit, iOS: iosInit),
       onDidReceiveNotificationResponse: (details) {},
     );
     // チャンネル作成 (Android)
-    await _local
+    await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(_channel);
@@ -54,7 +58,7 @@ class NotificationService {
 
   /// 2) FCM 受信を local 通知で表示
   static Future showLocal(String? title, String? body) =>
-      _local.show(
+      _flutterLocalNotificationsPlugin.show(
         0, title, body,
         NotificationDetails(
           android: AndroidNotificationDetails(
@@ -75,7 +79,7 @@ class NotificationService {
     required int minute,
     required int id,
   }) =>
-      _local.zonedSchedule(
+      _flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         title,
         body,
@@ -100,4 +104,30 @@ class NotificationService {
     if (scheduled.isBefore(now)) scheduled = scheduled.add(const Duration(days: 1));
     return scheduled;
   }
+
+
+  /// 任意日時に 1 回だけ通知
+  static Future<void> schedule({
+    required int id,
+    required DateTime dateTime,
+    required String title,
+    required String body,
+  }) async {
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.from(dateTime, tz.local),
+      const NotificationDetails(
+        android: AndroidNotificationDetails('care', 'Care'),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.dateAndTime,
+    );
+  }
+
+
+
 }
