@@ -354,6 +354,19 @@ class _CameraPageState extends State<CameraPage> {
         await CareRepo.add(e);
       }
 
+      // ── P3: disease が "なし" でなければ防除タスクを当日 18:00 に追加
+      final disease = data['disease'] as String;
+      if (disease != 'なし') {
+        final today18 = DateTime(today.year, today.month, today.day, 18);
+        await CareRepo.add(CareEvent(
+          date: today18,
+          type: CareType.disease,
+          note: disease,          // note 用フィールドを追加する場合
+        ));
+      }
+
+
+
       await LocalStore.save(data);
       final memo = await _askMemo();       // ユーザーにメモ入力を求める
       if (memo != null && memo.isNotEmpty) {
@@ -435,13 +448,17 @@ class StatusCard extends StatelessWidget {
               _row('開花まであと', data['daysToFlower']),
               _row('収穫まであと', data['daysToHarvest']),
               _row('状態', data['growthStatus']),
-              _row('病気', data['disease']),
+              _row('病気', data['disease'],
+                  valueStyle: TextStyle(
+                    color: data['disease'] != 'なし' ? Colors.red : Colors.black,
+                    fontWeight: FontWeight.bold)
+                  ),
             ],
           ),
         ),
       );
 
-  Widget _row(String label, String value) => Padding(
+  Widget _row(String label, String value, {TextStyle? valueStyle}) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

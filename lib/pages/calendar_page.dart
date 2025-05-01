@@ -55,6 +55,9 @@ class _CalendarPageState extends State<CalendarPage> {
                     case CareType.pollination:
                       color = Colors.purple;
                       break;
+                    case CareType.disease:
+                      color = Colors.red;
+                      break;
                   }
                   // 完了なら灰色
                   if (ev.done) color = Colors.grey;

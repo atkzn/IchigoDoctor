@@ -69,6 +69,10 @@ class CareRepo {
         title = '人工授粉の時間です';
         body = '花をそっと揺すって受粉を助けましょう';
         break;
+      case CareType.disease:
+        title = '病害防除の時間です';
+        body  = '防除用スプレーで対策しましょう';
+        break;
     }
     NotificationService.schedule(
       id: dt.hashCode ^ e.type.index,
