@@ -1,10 +1,10 @@
 // lib/models/care_event.dart
-enum CareType { water, fertilize }
+enum CareType { water, fertilize, runner, pollination }
 
 class CareEvent {
-  final DateTime date;       // 世話予定日 (00:00)
-  final CareType type;       // 水やり or 追肥
-  bool done;                 // 完了フラグ
+  final DateTime date;
+  final CareType type;
+  bool done;
 
   CareEvent({required this.date, required this.type, this.done = false});
 

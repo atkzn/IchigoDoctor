@@ -319,13 +319,29 @@ class _CameraPageState extends State<CameraPage> {
 
       final today = DateTime.now();
       await CareRepo.add(CareEvent(
-        date: today.add(const Duration(days: 0)),  // 今日 水やり
+        //date: today.add(const Duration(days: 0)),  // 今日 水やり
+        date: today,
         type: CareType.water,
       ));
       await CareRepo.add(CareEvent(
         date: today.add(const Duration(days: 7)),  // 7日後 追肥
         type: CareType.fertilize,
       ));
+
+      // ── P1: ランナー整理を 15日後に追加 ──
+      await CareRepo.add(CareEvent(
+        date: today.add(const Duration(days: 15)),
+        type: CareType.runner,
+      ));
+
+      // ── P1: 受粉を「花芽形成以降」に翌日に追加 ──
+      final stage = data['stage'] as String;
+      if (stage == 'S5' || stage == 'S6') {
+        await CareRepo.add(CareEvent(
+          date: today.add(const Duration(days: 1)),
+          type: CareType.pollination,
+        ));
+      }
 
 
       await LocalStore.save(data);

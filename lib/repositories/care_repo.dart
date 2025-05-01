@@ -49,13 +49,27 @@ class CareRepo {
         e.date.year == month.year && e.date.month == month.month).toList();
   }
 
-  /// 1 日 1 回の通知（08:00）
   static void _scheduleNotification(CareEvent e) {
     final dt = DateTime(e.date.year, e.date.month, e.date.day, 8);
-    final title = e.type == CareType.water ? '水やりの時間です' : '追肥の時間です';
-    final body = e.type == CareType.water
-        ? '土表面が乾いたらたっぷり水を！'
-        : '液肥1000倍を与えましょう';
+    String title, body;
+    switch (e.type) {
+      case CareType.water:
+        title = '水やりの時間です';
+        body = '土表面が乾いたらたっぷり水を！';
+        break;
+      case CareType.fertilize:
+        title = '追肥の時間です';
+        body = '液肥1000倍を与えましょう';
+        break;
+      case CareType.runner:
+        title = 'ランナー整理の時間です';
+        body = '不要ランナーを切り取りましょう';
+        break;
+      case CareType.pollination:
+        title = '人工授粉の時間です';
+        body = '花をそっと揺すって受粉を助けましょう';
+        break;
+    }
     NotificationService.schedule(
       id: dt.hashCode ^ e.type.index,
       dateTime: dt,
@@ -63,4 +77,5 @@ class CareRepo {
       body: body,
     );
   }
+
 }
