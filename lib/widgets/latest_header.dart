@@ -10,32 +10,42 @@ class LatestHeader extends StatelessWidget {
     return FutureBuilder(
       future: DiaryRepo.latest(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          // 写真がまだ無い場合は従来キャラのみ
-          return Center(
-            child: Image.asset('assets/characters/fairy.png', height: 200),
-          );
-        }
-        final diary = snapshot.data!;
+        final diary = snapshot.data;
+
+        // ヘッダ領域は 4:3 のアスペクトを維持
         return AspectRatio(
           aspectRatio: 4 / 3,
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // ユーザー最新写真
-              Image.file(
-                File(diary.image),
-                fit: BoxFit.cover,
-              ),
-              // キャラを右下 1/8 サイズで重ねる
+              // ── 1) 背景：最新写真 or プレースホルダー ──
+              if (diary != null)
+                Image.file(File(diary.image), fit: BoxFit.cover)
+              else
+                Container(color: const Color(0xFFF5EEE4)), // 薄ベージュ
+
+              // ── 2) キャラを右下に小さく ──
               Positioned(
                 right: 8,
                 bottom: 8,
-                child: FractionallySizedBox(
-                  widthFactor: 0.2,   // =1/5。お好みで 0.125 など
-                  child: Image.asset('assets/characters/fairy.png'),
+                child: Image.asset(
+                  'assets/characters/fairy.png',
+                  width: 64,          // 固定 64px
+                  fit: BoxFit.contain,
                 ),
               ),
+
+              // ── 3) 写真が無い時だけ中央に「撮影してね」ガイド ──
+              if (diary == null)
+                Center(
+                  child: Text(
+                    '📷 まずは撮影して診断しよう！',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: Colors.grey),
+                  ),
+                ),
             ],
           ),
         );
