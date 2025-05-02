@@ -27,6 +27,7 @@ import 'services/care_logic.dart';
 import 'repositories/care_repo.dart';   // 撮影後イベント生成用
 import 'models/care_event.dart';
 import 'widgets/latest_header.dart';
+import 'widgets/stage_image.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -136,37 +137,11 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            const TodayTip(),
+            //const TodayTip(),
+            const LatestHeader(),
             const SizedBox(height: 12),
-            /*
-           // ── キャラクター＋日数バッジ ──
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/characters/fairy.png',
-                    height: 200,
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFAF2D8),
-                      border: Border.all(color: const Color(0xFFCFC2A0)),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(day,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ),
-            */
-            const LatestHeader(),   // ← 新しいヘッダ
+            Center(child: StageImage(stage: d['stage'] ?? 'S0')),
+            const SizedBox(height: 12),
             // 日数バッジは下に残す
             Align(
               alignment: Alignment.topRight,
@@ -510,7 +485,7 @@ class StatusCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              _row('生育日数', data['growthDaysEst']),
+              _row('生育日数', '${data['growthDaysEst']}日'),
               _row('開花まであと', data['daysToFlower']),
               _row('収穫まであと', data['daysToHarvest']),
               _row('状態', data['growthStatus']),
