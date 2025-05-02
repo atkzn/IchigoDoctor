@@ -17,7 +17,11 @@ class StageImage extends StatelessWidget {
       'S6': 'assets/lottie/stage6.png',
       'S7': 'assets/lottie/stage7.png',
     };
+    return Image.asset(map[stage] ?? map['S0']!,
+        height: 120, fit: BoxFit.contain);
+    /*
     final path = map[stage] ?? map['S0']!;
     return Image.asset(path, height: 120, fit: BoxFit.contain);
+    */
   }
 }

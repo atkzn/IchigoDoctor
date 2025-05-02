@@ -16,7 +16,7 @@ import 'theme_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'pages/tips_page.dart';
-import 'widgets/today_tip.dart';
+//import 'widgets/today_tip.dart';
 import 'dart:io';
 import 'repositories/diary_repo.dart';
 import 'models/diary.dart';
@@ -28,6 +28,10 @@ import 'repositories/care_repo.dart';   // 撮影後イベント生成用
 import 'models/care_event.dart';
 import 'widgets/latest_header.dart';
 import 'widgets/stage_image.dart';
+import 'widgets/stage_status_card.dart';
+import 'widgets/top_bar.dart';
+import 'widgets/advice_card.dart';
+import 'widgets/color_nav.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -70,6 +74,11 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: _pages[_index],
+        bottomNavigationBar: ColorNav(
+          index: _index,
+          onTap: (i) => setState(() => _index = i),
+        ),
+        /*
         bottomNavigationBar: NavigationBar(
           selectedIndex: _index,
           onDestinationSelected: (i) => setState(() => _index = i),
@@ -82,6 +91,7 @@ class _RootPageState extends State<RootPage> {
             NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
           ],
         ),
+        */
       );
 }
 
@@ -124,6 +134,7 @@ class _HomePageState extends State<HomePage> {
     final day = d['growthDaysEst'];
 
     return Scaffold(
+      /*
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.appTitle),
         actions: [
@@ -133,15 +144,24 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      */
+      appBar: const TopBar(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            /*
             //const TodayTip(),
             const LatestHeader(),
             const SizedBox(height: 12),
             Center(child: StageImage(stage: d['stage'] ?? 'S0')),
             const SizedBox(height: 12),
+            */
+            const SizedBox(height: 12),
+            Center(child: StageImage(stage: d['stage'] ?? 'S0')),
+            const SizedBox(height: 12),
+            StageStatusCard(d: d),
+            const Divider(),
             // 日数バッジは下に残す
             Align(
               alignment: Alignment.topRight,
@@ -174,7 +194,8 @@ class _HomePageState extends State<HomePage> {
             const Divider(),
 
             // ── 今日の世話カード ──
-            CareCard(careTips: d['careTips']),
+            //CareCard(careTips: d['careTips']),
+            AdviceCard(tips: List<String>.from(d['careTips'])),
             const SizedBox(height: 12),
 
             // ── リマインダーボタン ──
@@ -200,12 +221,16 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 24),
 
-            // ── バナー広告（準備できている時だけ） ──
+            // ── バナー広告 ──
             if (_bannerReady)
               Center(
-                child: SizedBox(
+                child: Container(
                   width: _bannerAd.size.width.toDouble(),
                   height: _bannerAd.size.height.toDouble(),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade700, width: 2),
+                    color: Colors.grey.shade400,
+                  ),
                   child: AdWidget(ad: _bannerAd),
                 ),
               ),

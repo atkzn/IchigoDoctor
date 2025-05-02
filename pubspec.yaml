@@ -112,6 +112,7 @@ flutter:
   assets:
     - assets/icon_1024.png
     - assets/icon_splash.png
+    - assets/logo.png
     # キャラクター
     - assets/characters/fairy.png
     # Lottie
