@@ -31,6 +31,7 @@ import 'widgets/stage_status_card.dart';
 import 'widgets/top_bar.dart';
 import 'widgets/advice_card.dart';
 import 'widgets/color_nav.dart';
+import 'notifiers/latest_notifier.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -284,6 +285,7 @@ class _CameraPageState extends State<CameraPage> {
       }
 
 
+      final diary = Diary.fromJson(data);
 
       await LocalStore.save(data);
 
@@ -294,6 +296,9 @@ class _CameraPageState extends State<CameraPage> {
         image: xfile.path,
         memo: '',  // 後から編集画面で追記可
       ));
+      //context.read<LatestNotifier>().update(data); // ★Provider で Home と同期
+      context.read<LatestNotifier>().update(diary);
+
 
       final memo = await _askMemo();       // ユーザーにメモ入力を求める
       if (memo != null && memo.isNotEmpty) {

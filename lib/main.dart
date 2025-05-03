@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'notifiers/latest_notifier.dart';
 
 
 Future<void> main() async {
@@ -42,14 +43,49 @@ Future<void> main() async {
 
   // 🔽 起動時に保存済みデータを読み込む
   final saved = await LocalStore.load();
+  /*
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeModel(),
-      child: EntryPoint(initialData: saved),
+      //child: EntryPoint(initialData: saved),
+      child: const BabyBerryApp(),   // ← ここで MaterialApp は 1 度だけ生成
+    ),
+  );
+  */
+  runApp(
+    MultiProvider(            // ★ Provider をまとめて登録
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeModel()),
+        ChangeNotifierProvider(create: (_) => LatestNotifier()), // ★追加
+      ],
+      child: const BabyBerryApp(),
     ),
   );
 
 }
+
+
+class BabyBerryApp extends StatelessWidget {
+  const BabyBerryApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ThemeModel>(
+      builder: (_, theme, __) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        themeMode: theme.mode,             // ← ここだけ動的
+        theme: ThemeData(
+          useMaterial3: true,
+          colorSchemeSeed: const Color(0xFFAF3F3F),
+        ),
+        darkTheme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: const Color(0xFF121212),
+        ),
+        home: const RootPage(),            // ← 以降は再生成されない
+      ),
+    );
+  }
+}
+
 
 /// サインイン状態に応じて画面を切り替え
 class EntryPoint extends StatelessWidget {
