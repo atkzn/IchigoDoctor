@@ -1,18 +1,32 @@
+/// Diary レコード
+///   • id        … 一意キー（ISO8601 文字列）
+///   • dateTime  … 撮影日時
+///   • image     … 端末内に保存した画像パス
+///   • memo      … ユーザー入力メモ（空文字可）
 class Diary {
-  final String id;        // 例: 2024-04-30T12:34:56
-  final String image;     // ファイルパス
+  final String id;
+  final DateTime dateTime;
+  final String image;
   final String memo;
 
-  Diary({required this.id, required this.image, required this.memo});
+  Diary({
+    required this.id,
+    required this.dateTime,
+    required this.image,
+    required this.memo,
+  });
 
-  Map<String, String> toJson() => {
+  // JSON ⇆ モデル
+  Map<String, dynamic> toJson() => {
         'id': id,
+        'dateTime': dateTime.toIso8601String(),
         'image': image,
         'memo': memo,
       };
 
   factory Diary.fromJson(Map<String, dynamic> j) => Diary(
         id: j['id'] as String,
+        dateTime: DateTime.parse(j['dateTime'] as String),
         image: j['image'] as String,
         memo: j['memo'] as String,
       );

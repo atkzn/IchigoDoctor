@@ -16,7 +16,6 @@ import 'theme_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'pages/tips_page.dart';
-//import 'widgets/today_tip.dart';
 import 'dart:io';
 import 'repositories/diary_repo.dart';
 import 'models/diary.dart';
@@ -67,7 +66,6 @@ class _RootPageState extends State<RootPage> {
         
         const CalendarPage(), // Dairy
         const TipsPage(), // Tips
-        //const Placeholder(), // Shop
         const SettingsPage(), // Setting
       ];
 
@@ -78,20 +76,6 @@ class _RootPageState extends State<RootPage> {
           index: _index,
           onTap: (i) => setState(() => _index = i),
         ),
-        /*
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _index,
-          onDestinationSelected: (i) => setState(() => _index = i),
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.camera_alt), label: 'Camera'),
-            NavigationDestination(icon: Icon(Icons.book), label: 'Diary'),
-            NavigationDestination(icon: Icon(Icons.lightbulb), label: 'Tips'),
-            //NavigationDestination(icon: Icon(Icons.shopping_cart), label: 'Shop'),
-            NavigationDestination(icon: Icon(Icons.settings), label: '設定'),
-          ],
-        ),
-        */
       );
 }
 
@@ -141,76 +125,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             const LatestHeader(),
             const SizedBox(height: 12),
-            //Center(child: StageImage(stage: d['stage'] ?? 'S0')),
-            //const SizedBox(height: 12),
             StageStatusCard(d: d),
-            //const Divider(),
-            AdviceCard(tips: List<String>.from(d['careTips'])),
-
-            /*
-            // 日数バッジは下に残す
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                margin: const EdgeInsets.only(top: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFAF2D8),
-                  border: Border.all(color: const Color(0xFFCFC2A0)),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Text(day, style: const TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            ),
             const SizedBox(height: 12),
-            */
-
-            /*
-            // ── メインテキスト ──
-            Center(
-              child: Text(
-                AppLocalizations.of(context)!.homeToday(day),
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ),
-            const SizedBox(height: 8),
-            */
-
-            /*
-            // ── 成育ステータス ──
-            StatusCard(data: d),
-            const Divider(),
-
-            // ── 今日の世話カード ──
-            //CareCard(careTips: d['careTips']),
             AdviceCard(tips: List<String>.from(d['careTips'])),
             const SizedBox(height: 12),
-            */
 
-            /*
-            // ── リマインダーボタン ──
-            ElevatedButton(
-              onPressed: () {
-                const time = "08:00";
-                NotificationService.scheduleDailyReminder(
-                  id: 1,
-                  title: '水やりの時間です',
-                  body: '土表面が乾いたらたっぷり水をあげましょう',
-                  hour: 8,
-                  minute: 0,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content:
-                        Text(AppLocalizations.of(context)!.waterReminder(time)),
-                  ),
-                );
-              },
-              child: const Text('水やりリマインダー設定'),
-            ),
-
-            const SizedBox(height: 24),
-            */
 
             // ── バナー広告 ──
             if (_bannerReady)
@@ -343,33 +262,6 @@ class _CameraPageState extends State<CameraPage> {
       final jsonStr = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
       final data = json.decode(jsonStr) as Map<String, dynamic>;
 
-/*
-      final today = DateTime.now();
-      await CareRepo.add(CareEvent(
-        //date: today.add(const Duration(days: 0)),  // 今日 水やり
-        date: today,
-        type: CareType.water,
-      ));
-      await CareRepo.add(CareEvent(
-        date: today.add(const Duration(days: 7)),  // 7日後 追肥
-        type: CareType.fertilize,
-      ));
-
-      // ── P1: ランナー整理を 15日後に追加 ──
-      await CareRepo.add(CareEvent(
-        date: today.add(const Duration(days: 15)),
-        type: CareType.runner,
-      ));
-
-      // ── P1: 受粉を「花芽形成以降」に翌日に追加 ──
-      final stage = data['stage'] as String;
-      if (stage == 'S5' || stage == 'S6') {
-        await CareRepo.add(CareEvent(
-          date: today.add(const Duration(days: 1)),
-          type: CareType.pollination,
-        ));
-      }
-*/
       final today = DateTime.now();
       final stage = data['stage'] as String;
       final events = CareLogic.eventsForStage(stage, today);
@@ -397,8 +289,9 @@ class _CameraPageState extends State<CameraPage> {
       // ── 写真を Diary に保存して最新ヘッダに反映 ──
       await DiaryRepo.add(Diary(
         id: DateTime.now().toIso8601String(),
+        dateTime: DateTime.now(),
         image: xfile.path,
-        memo: '',
+        memo: '',  // 後から編集画面で追記可
       ));
 
       final memo = await _askMemo();       // ユーザーにメモ入力を求める
@@ -406,6 +299,7 @@ class _CameraPageState extends State<CameraPage> {
         final imgPath = await DiaryRepo.saveImage(File(xfile.path));
         await DiaryRepo.add(Diary(
           id: DateTime.now().toIso8601String(),
+          dateTime: DateTime.now(),
           image: imgPath,
           memo: memo,
         ));
@@ -496,6 +390,7 @@ class _CameraPageState extends State<CameraPage> {
       );
 }
 
+/*
 class StatusCard extends StatelessWidget {
   final Map<String, dynamic> data;
   const StatusCard({required this.data, super.key});
@@ -531,6 +426,7 @@ class StatusCard extends StatelessWidget {
         ),
       );
 }
+*/
 
 class CareCard extends StatelessWidget {
   final List<dynamic> careTips;

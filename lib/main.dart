@@ -74,8 +74,13 @@ class EntryPoint extends StatelessWidget {
               theme: ThemeData(
                 useMaterial3: true,
                 colorSchemeSeed: const Color(0xFFAF3F3F),
+                brightness: Brightness.light,
               ),
-              darkTheme: ThemeData.dark(),
+              darkTheme: ThemeData(
+                useMaterial3: true,
+                colorSchemeSeed: const Color(0xFFAF3F3F),
+                brightness: Brightness.dark,
+              ),
               navigatorObservers: [
                 FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
               ],
