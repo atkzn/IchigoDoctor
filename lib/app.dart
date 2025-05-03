@@ -141,10 +141,10 @@ class _HomePageState extends State<HomePage> {
           children: [
             const LatestHeader(),
             const SizedBox(height: 12),
-            Center(child: StageImage(stage: d['stage'] ?? 'S0')),
-            const SizedBox(height: 12),
+            //Center(child: StageImage(stage: d['stage'] ?? 'S0')),
+            //const SizedBox(height: 12),
             StageStatusCard(d: d),
-            const Divider(),
+            //const Divider(),
             AdviceCard(tips: List<String>.from(d['careTips'])),
 
             /*
@@ -176,6 +176,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 8),
             */
 
+            /*
             // ── 成育ステータス ──
             StatusCard(data: d),
             const Divider(),
@@ -184,6 +185,7 @@ class _HomePageState extends State<HomePage> {
             //CareCard(careTips: d['careTips']),
             AdviceCard(tips: List<String>.from(d['careTips'])),
             const SizedBox(height: 12),
+            */
 
             /*
             // ── リマインダーボタン ──
