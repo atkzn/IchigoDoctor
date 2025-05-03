@@ -24,8 +24,10 @@ class LatestHeader extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),   // ←左右余白
           child: AspectRatio(
             aspectRatio: 1,                                      // ←正方形
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.zero,
+              ),
               child: Stack(
                 fit: StackFit.expand,
                 children: [
