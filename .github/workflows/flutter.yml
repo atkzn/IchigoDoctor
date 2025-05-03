@@ -10,15 +10,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1) ソース取得
       - uses: actions/checkout@v4
+
+      # 2) Flutter セットアップ
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+
+      # 3) 依存解決
       - run: flutter pub get
+
+      # 4) ビルド変数 (GEMINI_KEY など)
       - run: echo "GEMINI_KEY=${{ secrets.GEMINI_KEY }}" >> $GITHUB_ENV
+
+      # 5) リリース APK ビルド
       - run: flutter build apk --release --dart-define=GEMINI_KEY=${{ env.GEMINI_KEY }}
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+
+      # 6) GitHub Release を作成（タグ = yyyymmdd-hhmm）
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
         with:
-          name: BabyBerry-APK
-          path: build/app/outputs/flutter-apk/app-release.apk
+          tag_name: ${{ github.run_id }}-${{ github.run_number }}
+          name: Build ${{ github.run_id }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 7) APK を Release Assets にアップロード
+      - name: Upload APK to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.create_release.outputs.tag_name }}
+          files: build/app/outputs/flutter-apk/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
