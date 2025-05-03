@@ -64,7 +64,7 @@ class _RootPageState extends State<RootPage> {
           });
         }),
         
-        const CalendarPage(), // Dairy
+        const DiaryPage(), // Dairy
         const TipsPage(), // Tips
         const SettingsPage(), // Setting
       ];

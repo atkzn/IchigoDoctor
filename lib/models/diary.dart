@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /// Diary レコード
 ///   • id        … 一意キー（ISO8601 文字列）
 ///   • dateTime  … 撮影日時
@@ -30,4 +32,11 @@ class Diary {
         image: j['image'] as String,
         memo: j['memo'] as String,
       );
+
+
+  static List<Diary> listFromJson(String json) =>
+      (jsonDecode(json) as List).map((e) => Diary.fromJson(e)).toList();
+
+  static String listToJson(List<Diary> list) =>
+      jsonEncode(list.map((e) => e.toJson()).toList());
 }
