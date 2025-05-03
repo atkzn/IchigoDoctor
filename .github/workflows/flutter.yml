@@ -32,22 +32,36 @@ jobs:
       - run: flutter build apk --release --dart-define=GEMINI_KEY=${{ env.GEMINI_KEY }}
 
       # 6) GitHub Release を作成（タグ = yyyymmdd-hhmm）
-      - name: Create Release
-        id: create_release
+      # ── これ 1 つで 「タグ作成＋APK添付」 を同時実行 ──
+      - name: Release APK
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.run_id }}-${{ github.run_number }}
           name: Build ${{ github.run_id }}
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # 7) APK を Release Assets にアップロード
-      - name: Upload APK to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ steps.create_release.outputs.tag_name }}
           files: build/app/outputs/flutter-apk/app-release.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+#      - name: Create Release
+#        id: create_release
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          tag_name: ${{ github.run_id }}-${{ github.run_number }}
+#          name: Build ${{ github.run_id }}
+#          draft: false
+#          prerelease: false
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 7) APK を Release Assets にアップロード
+#      - name: Upload APK to Release
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          tag_name: ${{ steps.create_release.outputs.tag_name }}
+#          files: build/app/outputs/flutter-apk/app-release.apk
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
