@@ -73,6 +73,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 },
               ),
               onDaySelected: (sel, foc) async {
+                //Navigator.pushNamed(context, DiaryListPage.route, arguments: sel);
                 setState(() {
                   _selected = sel;
                   _focused = foc;

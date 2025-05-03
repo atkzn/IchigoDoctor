@@ -16,7 +16,8 @@ class StageStatusCard extends StatelessWidget {
             Text(
               '生育ステージ ${d['stage'].substring(1)}',
               style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
+                  //color: Theme.of(context).colorScheme.primary,
+                  color: const Color(0xFFE64A93),
                   fontWeight: FontWeight.bold,
                   fontSize: 18),
             ),

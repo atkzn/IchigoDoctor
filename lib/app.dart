@@ -115,7 +115,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final d = widget.data ?? _dummy;
-    final day = d['growthDaysEst'];
+    //final day = d['growthDaysEst'];
+    final key = ValueKey(Theme.of(context).brightness);
 
     return Scaffold(
       appBar: const TopBar(),
@@ -123,11 +124,11 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
           children: [
-            const LatestHeader(),
+            LatestHeader(key: key),
             const SizedBox(height: 12),
-            StageStatusCard(d: d),
+            StageStatusCard(key: key, d: d),
             const SizedBox(height: 12),
-            AdviceCard(tips: List<String>.from(d['careTips'])),
+            AdviceCard(key: key, tips: List<String>.from(d['careTips'])),
             const SizedBox(height: 12),
 
 
@@ -390,43 +391,6 @@ class _CameraPageState extends State<CameraPage> {
       );
 }
 
-/*
-class StatusCard extends StatelessWidget {
-  final Map<String, dynamic> data;
-  const StatusCard({required this.data, super.key});
-
-  @override
-  Widget build(BuildContext context) => Card(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              _row('生育日数', '${data['growthDaysEst']}日'),
-              _row('開花まであと', data['daysToFlower']),
-              _row('収穫まであと', data['daysToHarvest']),
-              _row('状態', data['growthStatus']),
-              _row('病気', data['disease'],
-                  valueStyle: TextStyle(
-                    color: data['disease'] != 'なし' ? Colors.red : Colors.black,
-                    fontWeight: FontWeight.bold)
-                  ),
-            ],
-          ),
-        ),
-      );
-
-  Widget _row(String label, String value, {TextStyle? valueStyle}) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(label), Text(value)],
-        ),
-      );
-}
-*/
 
 class CareCard extends StatelessWidget {
   final List<dynamic> careTips;
