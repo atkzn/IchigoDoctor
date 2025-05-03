@@ -22,18 +22,7 @@ class LatestHeader extends StatelessWidget {
               if (diary != null)
                 Image.file(File(diary.image), fit: BoxFit.cover)
               else
-                Container(color: const Color(0xFFF5EEE4)), // 薄ベージュ
-
-              // ── 2) キャラを右下に小さく ──
-              Positioned(
-                right: 8,
-                bottom: 8,
-                child: Image.asset(
-                  'assets/characters/fairy.png',
-                  width: 64,          // 固定 64px
-                  fit: BoxFit.contain,
-                ),
-              ),
+                Container(color: const Color(0xFFFFFFFF)), // 白
 
               // ── 3) 写真が無い時だけ中央に「撮影してね」ガイド ──
               if (diary == null)

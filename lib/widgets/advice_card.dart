@@ -7,13 +7,14 @@ class AdviceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Material(
         elevation: 4,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
+          child: Stack(
+            clipBehavior: Clip.none,
             children: [
-              Expanded(
-                child: Column(
+              Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('お世話アドバイス',
@@ -25,9 +26,14 @@ class AdviceCard extends StatelessWidget {
                         Text('• $t', style: const TextStyle(height: 1.5))),
                   ],
                 ),
+              //const SizedBox(width: 8),
+              //Image.asset('assets/characters/fairy.png', width: 80),
+              Positioned(
+                right: -24,
+                bottom: -24,
+                child:
+                    Image.asset('assets/characters/fairy.png', width: 96), // 影の外
               ),
-              const SizedBox(width: 8),
-              Image.asset('assets/characters/fairy.png', width: 64),
             ],
           ),
         ),

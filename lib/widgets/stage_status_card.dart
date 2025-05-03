@@ -6,7 +6,8 @@ class StageStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: const Color(0xFFF4EADB),
+        width: double.infinity,
+        color: const Color(0xFFF2E8D7),
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Column(
           children: [

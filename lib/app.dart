@@ -134,34 +134,20 @@ class _HomePageState extends State<HomePage> {
     final day = d['growthDaysEst'];
 
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.appTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.brightness_6),
-            onPressed: () => context.read<ThemeModel>().toggle(),
-          ),
-        ],
-      ),
-      */
       appBar: const TopBar(),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
           children: [
-            /*
-            //const TodayTip(),
             const LatestHeader(),
-            const SizedBox(height: 12),
-            Center(child: StageImage(stage: d['stage'] ?? 'S0')),
-            const SizedBox(height: 12),
-            */
             const SizedBox(height: 12),
             Center(child: StageImage(stage: d['stage'] ?? 'S0')),
             const SizedBox(height: 12),
             StageStatusCard(d: d),
             const Divider(),
+            AdviceCard(tips: List<String>.from(d['careTips'])),
+
+            /*
             // 日数バッジは下に残す
             Align(
               alignment: Alignment.topRight,
@@ -176,10 +162,10 @@ class _HomePageState extends State<HomePage> {
                 child: Text(day, style: const TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
-
-
             const SizedBox(height: 12),
+            */
 
+            /*
             // ── メインテキスト ──
             Center(
               child: Text(
@@ -188,6 +174,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 8),
+            */
 
             // ── 成育ステータス ──
             StatusCard(data: d),
@@ -198,6 +185,7 @@ class _HomePageState extends State<HomePage> {
             AdviceCard(tips: List<String>.from(d['careTips'])),
             const SizedBox(height: 12),
 
+            /*
             // ── リマインダーボタン ──
             ElevatedButton(
               onPressed: () {
@@ -220,6 +208,7 @@ class _HomePageState extends State<HomePage> {
             ),
 
             const SizedBox(height: 24),
+            */
 
             // ── バナー広告 ──
             if (_bannerReady)
@@ -402,6 +391,14 @@ class _CameraPageState extends State<CameraPage> {
 
 
       await LocalStore.save(data);
+
+      // ── 写真を Diary に保存して最新ヘッダに反映 ──
+      await DiaryRepo.add(Diary(
+        id: DateTime.now().toIso8601String(),
+        image: xfile.path,
+        memo: '',
+      ));
+
       final memo = await _askMemo();       // ユーザーにメモ入力を求める
       if (memo != null && memo.isNotEmpty) {
         final imgPath = await DiaryRepo.saveImage(File(xfile.path));
@@ -543,7 +540,7 @@ class CareCard extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: careTips
