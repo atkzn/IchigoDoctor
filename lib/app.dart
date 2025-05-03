@@ -259,8 +259,23 @@ class _CameraPageState extends State<CameraPage> {
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode(body));
       final raw = json.decode(res.body);
-      final txt =
-          raw['candidates'][0]['content']['parts'][0]['text'] as String;
+
+      // ① ステータスコード & candidates チェック
+      if (res.statusCode != 200 ||
+          raw['candidates'] == null ||
+          raw['candidates'].isEmpty) {
+        throw '診断に失敗しました（response=${res.statusCode}）';
+      }
+
+      // ② text が null ならエラー扱い
+      final maybeText = raw['candidates'][0]['content']['parts'][0]['text'];
+      if (maybeText == null || maybeText is! String) {
+        throw '診断テキストを取得できませんでした';
+      }
+      final txt = maybeText as String;
+
+      //final txt =
+      //    raw['candidates'][0]['content']['parts'][0]['text'] as String;
       final jsonStr = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
       final data = json.decode(jsonStr) as Map<String, dynamic>;
 
