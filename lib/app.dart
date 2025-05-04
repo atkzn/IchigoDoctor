@@ -1,5 +1,5 @@
 // lib/app.dart
-
+/*
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -434,4 +434,148 @@ class CareCard extends StatelessWidget {
           ),
         ),
       );
+}
+*/
+
+// lib/app.dart
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+
+import 'notifiers/latest_notifier.dart';
+import 'widgets/color_nav.dart';
+import 'widgets/top_bar.dart';
+import 'widgets/latest_header.dart';
+import 'widgets/stage_status_card.dart';
+import 'widgets/advice_card.dart';
+import 'pages/camera_page.dart';
+import 'pages/diary_page.dart';
+import 'pages/tips_page.dart';
+import 'pages/setting_page.dart';
+import 'repositories/care_repo.dart';
+import 'repositories/diary_repo.dart';
+import 'local_store.dart';
+import 'utils/logger.dart';
+
+class BerryApp extends StatelessWidget {
+  const BerryApp({super.key, this.initialData});
+  final Map<String, dynamic>? initialData;
+
+  @override
+  Widget build(BuildContext context) => RootPage(initialData: initialData);
+}
+
+class RootPage extends StatefulWidget {
+  const RootPage({super.key, this.initialData});
+  final Map<String, dynamic>? initialData;
+
+  @override
+  State<RootPage> createState() => _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  int _index = 0;
+
+  List<Widget> get _pages => [
+        const HomePage(),
+        CameraPage(
+          onResult: (_) => setState(() => _index = 0),
+        ),
+        const DiaryPage(),
+        const TipsPage(),
+        const SettingsPage(),
+      ];
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: _pages[_index],
+        bottomNavigationBar:
+            ColorNav(index: _index, onTap: (i) => setState(() => _index = i)),
+      );
+}
+
+// ───────────────────────────────────────── Home
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late BannerAd _ad;
+  bool _ready = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _ad = BannerAd(
+      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      size: AdSize.banner,
+      listener: BannerAdListener(onAdLoaded: (_) {
+        if (mounted) setState(() => _ready = true);
+      }),
+      request: const AdRequest(),
+    )..load();
+  }
+
+  @override
+  void dispose() {
+    _ad.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final diary = context.watch<LatestNotifier>().latest;
+    if (diary == null) {
+     Log.d('HomePage: diary=null (まだ撮影なし)');
+    }
+    final dummy = {
+      'growthDaysEst': '21-25',
+      'daysToFlower': '20-25',
+      'daysToHarvest': '35-45',
+      'growthStatus': '良好',
+      'disease': 'なし',
+      'careTips': [
+        '水やり：土表面が乾いたらたっぷり',
+        '追肥：液肥1000倍を週1',
+        'ランナー整理：不要ランナーを切除',
+      ]
+    };
+
+    final data = diary?.toJson() ?? dummy;
+
+    final key = ValueKey(Theme.of(context).brightness);
+    return Scaffold(
+      appBar: const TopBar(),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          children: [
+            LatestHeader(key: key),
+            const SizedBox(height: 12),
+            StageStatusCard(key: key, d: data),
+            const SizedBox(height: 12),
+            AdviceCard(key: key, tips: List<String>.from(data['careTips'])),
+            const SizedBox(height: 12),
+            if (_ready)
+              Center(
+                child: Container(
+                  width: _ad.size.width.toDouble(),
+                  height: _ad.size.height.toDouble(),
+                  decoration: BoxDecoration(
+                    border:
+                        Border.all(color: Colors.grey.shade700, width: 2),
+                    color: Colors.grey.shade400,
+                  ),
+                  child: AdWidget(ad: _ad),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
 }
