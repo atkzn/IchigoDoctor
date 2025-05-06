@@ -1,0 +1,224 @@
+A Dart VM Service on J9260 is available at: http://127.0.0.1:64838/OatYN1CrUig=/
+I/Ads     (15053): JS: The jsLoaded GMSG has been sent (https://googleads.g.doubleclick.net/mads/static/mad/sdk/native/production/sdk-core-v40-impl.html:923)
+I/chromium(15053): [INFO:CONSOLE(923)] "The jsLoaded GMSG has been sent", source: https://googleads.g.doubleclick.net/mads/static/mad/sdk/native/production/sdk-core-v40-impl.html (923)
+The Flutter DevTools debugger and profiler on J9260 is available at: http://127.0.0.1:9101?uri=http://127.0.0.1:64838/OatYN1CrUig=/
+I/Choreographer(15053): Skipped 70 frames!  The application may be doing too much work on its main thread.
+I/OpenGLRenderer(15053): Davey! duration=1201ms; Flags=0, IntendedVsync=25205597521307, Vsync=25206764187927, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=25206776458195, AnimationStart=25206776462778, PerformTraversalsStart=25206779171841, DrawStart=25206779672049, SyncQueued=25206782135539, SyncStart=25206782404341, IssueDrawCommandsStart=25206782608351, SwapBuffers=25206798846424, FrameCompleted=25206799712101, DequeueBufferDuration=1613125, QueueBufferDuration=512604, GpuCompleted=-1,
+D/ProfileInstaller(15053): Installing profile for com.example.flutter_application_1
+I/flutter (15053): [IMPORTANT:flutter/shell/platform/android/platform_view_android.cc(308)] Flutter recommends migrating plugins that create and register surface textures to the new surface producer API. See https://docs.flutter.dev/release/breaking-changes/android-surface-plugins
+E/libc    (15053): Access denied finding property "persist.vendor.camera.privapp.list"
+I/Camera  (15053): startPreview
+I/Camera  (15053): CameraCaptureSession onConfigured
+I/Camera  (15053): Updating builder settings
+D/Camera  (15053): Updating builder with feature: ExposureLockFeature
+D/Camera  (15053): Updating builder with feature: ExposurePointFeature
+D/Camera  (15053): Updating builder with feature: ZoomLevelFeature
+D/Camera  (15053): Updating builder with feature: AutoFocusFeature
+D/Camera  (15053): Updating builder with feature: NoiseReductionFeature
+I/Camera  (15053): updateNoiseReduction | currentSetting: fast
+D/Camera  (15053): Updating builder with feature: FocusPointFeature
+D/Camera  (15053): Updating builder with feature: ResolutionFeature
+D/Camera  (15053): Updating builder with feature: SensorOrientationFeature
+D/Camera  (15053): Updating builder with feature: FlashFeature
+D/Camera  (15053): Updating builder with feature: ExposureOffsetFeature
+D/Camera  (15053): Updating builder with feature: FpsRangeFeature
+I/Camera  (15053): refreshPreviewCaptureSession
+I/Camera  (15053): runPictureAutoFocus
+I/Camera  (15053): lockAutoFocus
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 5 | aeState: 2
+I/Camera  (15053): captureStillPicture
+D/Camera  (15053): Updating builder with feature: ExposureLockFeature
+D/Camera  (15053): Updating builder with feature: ExposurePointFeature
+D/Camera  (15053): Updating builder with feature: ZoomLevelFeature
+D/Camera  (15053): Updating builder with feature: AutoFocusFeature
+D/Camera  (15053): Updating builder with feature: NoiseReductionFeature
+I/Camera  (15053): updateNoiseReduction | currentSetting: fast
+D/Camera  (15053): Updating builder with feature: FocusPointFeature
+D/Camera  (15053): Updating builder with feature: ResolutionFeature
+D/Camera  (15053): Updating builder with feature: SensorOrientationFeature
+D/Camera  (15053): Updating builder with feature: FlashFeature
+D/Camera  (15053): Updating builder with feature: ExposureOffsetFeature
+D/Camera  (15053): Updating builder with feature: FpsRangeFeature
+I/Camera  (15053): sending capture request
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+I/Camera  (15053): onImageAvailable
+D/qdgralloc(15053): GetYUVPlaneInfo: Invalid format passed: 0x21
+I/Camera  (15053): unlockAutoFocus
+I/Camera  (15053): refreshPreviewCaptureSession
+E/flutter (15053): [ERROR:flutter/shell/platform/android/surface_texture_external_texture_vk_impeller.cc(122)] Break on 'ImpellerValidationBreak' to inspect point of failure: Invalid external texture.
+I/Camera  (15053): dispose
+I/Camera  (15053): close
+I/Camera  (15053): open | onClosed
+I/FA      (15053): Application backgrounded at: timestamp_millis: 1746366741940
+I/AdrenoVK-0(15053): QUALCOMM build          : 559e78c, Ib9d997268a
+I/AdrenoVK-0(15053): Build Date              : 10/13/20
+I/AdrenoVK-0(15053): Shader Compiler Version : EV031.32.02.02
+I/AdrenoVK-0(15053): Local Branch            : mybrancheb0d76cb-f27a-f1ff-9cdc-1458d0b52ae8
+I/AdrenoVK-0(15053): Remote Branch           : quic/gfx-adreno.lnx.1.0.r99-rel
+I/AdrenoVK-0(15053): Remote Branch           : NONE
+I/AdrenoVK-0(15053): Reconstruct Branch      : NOTHING
+I/AdrenoVK-0(15053): Build Config            : S P 10.0.7 AArch64
+I/AdrenoVK-0(15053): Driver Path             : /vendor/lib64/hw/vulkan.adreno.so
+I/flutter (15053): [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(60)] Using the Impeller rendering backend (Vulkan).
+I/Choreographer(15053): Skipped 63 frames!  The application may be doing too much work on its main thread.
+E/flutter (15053): [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: type 'Null' is not a subtype of type 'Map<String, dynamic>' in type cast
+E/flutter (15053): #0      new Diary.fromJson (package:flutter_application_1/models/diary.dart:36:29)
+E/flutter (15053): #1      DiaryRepo.all.<anonymous closure> (package:flutter_application_1/repositories/diary_repo.dart:113:38)
+E/flutter (15053): #2      MappedListIterable.elementAt (dart:_internal/iterable.dart:442:31)
+E/flutter (15053): #3      ListIterator.moveNext (dart:_internal/iterable.dart:371:26)
+E/flutter (15053): #4      new _GrowableList._ofEfficientLengthIterable (dart:core-patch/growable_array.dart:190:27)
+E/flutter (15053): #5      new _GrowableList.of (dart:core-patch/growable_array.dart:150:28)
+E/flutter (15053): #6      new List.of (dart:core-patch/array_patch.dart:40:18)
+E/flutter (15053): #7      ListIterable.toList (dart:_internal/iterable.dart:224:7)
+E/flutter (15053): #8      DiaryRepo.all (package:flutter_application_1/repositories/diary_repo.dart:113:51)
+E/flutter (15053): <asynchronous suspension>
+E/flutter (15053): #9      _DiaryPageState._load (package:flutter_application_1/pages/diary_page.dart:30:17)
+E/flutter (15053): <asynchronous suspension>
+E/flutter (15053):
+E/flutter (15053): [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: type 'Null' is not a subtype of type 'Map<String, dynamic>' in type cast
+E/flutter (15053): #0      new Diary.fromJson (package:flutter_application_1/models/diary.dart:36:29)
+E/flutter (15053): #1      DiaryRepo.all.<anonymous closure> (package:flutter_application_1/repositories/diary_repo.dart:113:38)
+E/flutter (15053): #2      MappedListIterable.elementAt (dart:_internal/iterable.dart:442:31)
+E/flutter (15053): #3      ListIterator.moveNext (dart:_internal/iterable.dart:371:26)
+E/flutter (15053): #4      new _GrowableList._ofEfficientLengthIterable (dart:core-patch/growable_array.dart:190:27)
+E/flutter (15053): #5      new _GrowableList.of (dart:core-patch/growable_array.dart:150:28)
+E/flutter (15053): #6      new List.of (dart:core-patch/array_patch.dart:40:18)
+E/flutter (15053): #7      ListIterable.toList (dart:_internal/iterable.dart:224:7)
+E/flutter (15053): #8      DiaryRepo.all (package:flutter_application_1/repositories/diary_repo.dart:113:51)
+E/flutter (15053): <asynchronous suspension>
+E/flutter (15053): #9      _DiaryPageState._load (package:flutter_application_1/pages/diary_page.dart:30:17)
+E/flutter (15053): <asynchronous suspension>
+E/flutter (15053):
+I/flutter (15053): [IMPORTANT:flutter/shell/platform/android/platform_view_android.cc(308)] Flutter recommends migrating plugins that create and register surface textures to the new surface producer API. See https://docs.flutter.dev/release/breaking-changes/android-surface-plugins
+E/libc    (15053): Access denied finding property "persist.vendor.camera.privapp.list"
+I/Camera  (15053): startPreview
+I/Camera  (15053): CameraCaptureSession onConfigured
+I/Camera  (15053): Updating builder settings
+D/Camera  (15053): Updating builder with feature: ExposureLockFeature
+D/Camera  (15053): Updating builder with feature: ExposurePointFeature
+D/Camera  (15053): Updating builder with feature: ZoomLevelFeature
+D/Camera  (15053): Updating builder with feature: AutoFocusFeature
+D/Camera  (15053): Updating builder with feature: NoiseReductionFeature
+I/Camera  (15053): updateNoiseReduction | currentSetting: fast
+D/Camera  (15053): Updating builder with feature: FocusPointFeature
+D/Camera  (15053): Updating builder with feature: ResolutionFeature
+D/Camera  (15053): Updating builder with feature: SensorOrientationFeature
+D/Camera  (15053): Updating builder with feature: FlashFeature
+D/Camera  (15053): Updating builder with feature: ExposureOffsetFeature
+D/Camera  (15053): Updating builder with feature: FpsRangeFeature
+I/Camera  (15053): refreshPreviewCaptureSession
+I/Camera  (15053): runPictureAutoFocus
+I/Camera  (15053): lockAutoFocus
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 5 | aeState: 2
+I/Camera  (15053): captureStillPicture
+D/Camera  (15053): Updating builder with feature: ExposureLockFeature
+D/Camera  (15053): Updating builder with feature: ExposurePointFeature
+D/Camera  (15053): Updating builder with feature: ZoomLevelFeature
+D/Camera  (15053): Updating builder with feature: AutoFocusFeature
+D/Camera  (15053): Updating builder with feature: NoiseReductionFeature
+I/Camera  (15053): updateNoiseReduction | currentSetting: fast
+D/Camera  (15053): Updating builder with feature: FocusPointFeature
+D/Camera  (15053): Updating builder with feature: ResolutionFeature
+D/Camera  (15053): Updating builder with feature: SensorOrientationFeature
+D/Camera  (15053): Updating builder with feature: FlashFeature
+D/Camera  (15053): Updating builder with feature: ExposureOffsetFeature
+D/Camera  (15053): Updating builder with feature: FpsRangeFeature
+I/Camera  (15053): sending capture request
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+I/Camera  (15053): onImageAvailable
+D/qdgralloc(15053): GetYUVPlaneInfo: Invalid format passed: 0x21
+I/Camera  (15053): unlockAutoFocus
+I/Camera  (15053): refreshPreviewCaptureSession
+I/Camera  (15053): dispose
+I/Camera  (15053): close
+I/Camera  (15053): open | onClosed
+I/Camera  (15053): close
+I/flutter (15053): [IMPORTANT:flutter/shell/platform/android/platform_view_android.cc(308)] Flutter recommends migrating plugins that create and register surface textures to the new surface producer API. See https://docs.flutter.dev/release/breaking-changes/android-surface-plugins
+E/libc    (15053): Access denied finding property "persist.vendor.camera.privapp.list"
+I/Camera  (15053): startPreview
+I/Camera  (15053): CameraCaptureSession onConfigured
+I/Camera  (15053): Updating builder settings
+D/Camera  (15053): Updating builder with feature: ExposureLockFeature
+D/Camera  (15053): Updating builder with feature: ExposurePointFeature
+D/Camera  (15053): Updating builder with feature: ZoomLevelFeature
+D/Camera  (15053): Updating builder with feature: AutoFocusFeature
+D/Camera  (15053): Updating builder with feature: NoiseReductionFeature
+I/Camera  (15053): updateNoiseReduction | currentSetting: fast
+D/Camera  (15053): Updating builder with feature: FocusPointFeature
+D/Camera  (15053): Updating builder with feature: ResolutionFeature
+D/Camera  (15053): Updating builder with feature: SensorOrientationFeature
+D/Camera  (15053): Updating builder with feature: FlashFeature
+D/Camera  (15053): Updating builder with feature: ExposureOffsetFeature
+D/Camera  (15053): Updating builder with feature: FpsRangeFeature
+I/Camera  (15053): refreshPreviewCaptureSession
+I/Camera  (15053): runPictureAutoFocus
+I/Camera  (15053): lockAutoFocus
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 5 | aeState: 2
+I/Camera  (15053): captureStillPicture
+D/Camera  (15053): Updating builder with feature: ExposureLockFeature
+D/Camera  (15053): Updating builder with feature: ExposurePointFeature
+D/Camera  (15053): Updating builder with feature: ZoomLevelFeature
+D/Camera  (15053): Updating builder with feature: AutoFocusFeature
+D/Camera  (15053): Updating builder with feature: NoiseReductionFeature
+I/Camera  (15053): updateNoiseReduction | currentSetting: fast
+D/Camera  (15053): Updating builder with feature: FocusPointFeature
+D/Camera  (15053): Updating builder with feature: ResolutionFeature
+D/Camera  (15053): Updating builder with feature: SensorOrientationFeature
+D/Camera  (15053): Updating builder with feature: FlashFeature
+D/Camera  (15053): Updating builder with feature: ExposureOffsetFeature
+D/Camera  (15053): Updating builder with feature: FpsRangeFeature
+I/Camera  (15053): sending capture request
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(15053): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+I/Camera  (15053): onImageAvailable
+D/qdgralloc(15053): GetYUVPlaneInfo: Invalid format passed: 0x21
+I/Camera  (15053): unlockAutoFocus
+I/Camera  (15053): refreshPreviewCaptureSession
+Lost connection to device.

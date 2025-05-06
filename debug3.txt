@@ -1,0 +1,66 @@
+A Dart VM Service on J9260 is available at: http://127.0.0.1:51227/WMf6MYi2UOs=/
+I/Choreographer(19941): Skipped 64 frames!  The application may be doing too much work on its main thread.
+I/OpenGLRenderer(19941): Davey! duration=1084ms; Flags=0, IntendedVsync=27238165365303, Vsync=27239232031927, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=27239235081430, AnimationStart=27239235085180, PerformTraversalsStart=27239235970024, DrawStart=27239236421326, SyncQueued=27239236958357, SyncStart=27239237294659, IssueDrawCommandsStart=27239237599451, SwapBuffers=27239249554659, FrameCompleted=27239250433357, DequeueBufferDuration=3295105, QueueBufferDuration=529428, GpuCompleted=-5476376629047877424,
+The Flutter DevTools debugger and profiler on J9260 is available at: http://127.0.0.1:9101?uri=http://127.0.0.1:51227/WMf6MYi2UOs=/
+D/ProfileInstaller(19941): Installing profile for com.example.flutter_application_1
+I/flutter (19941): [IMPORTANT:flutter/shell/platform/android/platform_view_android.cc(308)] Flutter recommends migrating plugins that create and register surface textures to the new surface producer API. See https://docs.flutter.dev/release/breaking-changes/android-surface-plugins
+E/libc    (19941): Access denied finding property "persist.vendor.camera.privapp.list"
+I/Camera  (19941): startPreview
+I/Camera  (19941): CameraCaptureSession onConfigured
+I/Camera  (19941): Updating builder settings
+D/Camera  (19941): Updating builder with feature: ExposureLockFeature
+D/Camera  (19941): Updating builder with feature: ExposurePointFeature
+D/Camera  (19941): Updating builder with feature: ZoomLevelFeature
+D/Camera  (19941): Updating builder with feature: AutoFocusFeature
+D/Camera  (19941): Updating builder with feature: NoiseReductionFeature
+I/Camera  (19941): updateNoiseReduction | currentSetting: fast
+D/Camera  (19941): Updating builder with feature: FocusPointFeature
+D/Camera  (19941): Updating builder with feature: ResolutionFeature
+D/Camera  (19941): Updating builder with feature: SensorOrientationFeature
+D/Camera  (19941): Updating builder with feature: FlashFeature
+D/Camera  (19941): Updating builder with feature: ExposureOffsetFeature
+D/Camera  (19941): Updating builder with feature: FpsRangeFeature
+I/Camera  (19941): refreshPreviewCaptureSession
+I/Camera  (19941): runPictureAutoFocus
+I/Camera  (19941): lockAutoFocus
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 1 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_WAITING_FOCUS | afState: 5 | aeState: 2
+I/Camera  (19941): captureStillPicture
+D/Camera  (19941): Updating builder with feature: ExposureLockFeature
+D/Camera  (19941): Updating builder with feature: ExposurePointFeature
+D/Camera  (19941): Updating builder with feature: ZoomLevelFeature
+D/Camera  (19941): Updating builder with feature: AutoFocusFeature
+D/Camera  (19941): Updating builder with feature: NoiseReductionFeature
+I/Camera  (19941): updateNoiseReduction | currentSetting: fast
+D/Camera  (19941): Updating builder with feature: FocusPointFeature
+D/Camera  (19941): Updating builder with feature: ResolutionFeature
+D/Camera  (19941): Updating builder with feature: SensorOrientationFeature
+D/Camera  (19941): Updating builder with feature: FlashFeature
+D/Camera  (19941): Updating builder with feature: ExposureOffsetFeature
+D/Camera  (19941): Updating builder with feature: FpsRangeFeature
+I/Camera  (19941): sending capture request
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+D/CameraCaptureCallback(19941): CameraCaptureCallback | state: STATE_CAPTURING | afState: 5 | aeState: 2
+I/Camera  (19941): onImageAvailable
+D/qdgralloc(19941): GetYUVPlaneInfo: Invalid format passed: 0x21
+I/Camera  (19941): unlockAutoFocus
+I/Camera  (19941): refreshPreviewCaptureSession
+E/flutter (19941): [ERROR:flutter/shell/platform/android/surface_texture_external_texture_vk_impeller.cc(122)] Break on 'ImpellerValidationBreak' to inspect point of failure: Invalid external texture.
+I/Camera  (19941): dispose
+I/Camera  (19941): close
+I/Camera  (19941): open | onClosed
+I/FA      (19941): Application backgrounded at: timestamp_millis: 1746368654752

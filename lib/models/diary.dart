@@ -10,12 +10,14 @@ class Diary {
   final DateTime dateTime;
   final String image;
   final String memo;
+  final Map<String, dynamic> result;
 
   Diary({
     required this.id,
     required this.dateTime,
     required this.image,
     required this.memo,
+    required this.result,    
   });
 
   // JSON ⇆ モデル
@@ -24,6 +26,7 @@ class Diary {
         'dateTime': dateTime.toIso8601String(),
         'image': image,
         'memo': memo,
+        'result': result,
       };
 
   factory Diary.fromJson(Map<String, dynamic> j) => Diary(
@@ -31,6 +34,7 @@ class Diary {
         dateTime: DateTime.parse(j['dateTime'] as String),
         image: j['image'] as String,
         memo: j['memo'] as String,
+        result: (j['result'] as Map<String, dynamic>?) ?? {},
       );
 
 

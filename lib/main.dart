@@ -1,5 +1,6 @@
 // lib/main.dart
 
+/*
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,15 +44,6 @@ Future<void> main() async {
 
   // 🔽 起動時に保存済みデータを読み込む
   final saved = await LocalStore.load();
-  /*
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeModel(),
-      //child: EntryPoint(initialData: saved),
-      child: const BabyBerryApp(),   // ← ここで MaterialApp は 1 度だけ生成
-    ),
-  );
-  */
   runApp(
     MultiProvider(            // ★ Provider をまとめて登録
       providers: [
@@ -233,4 +225,122 @@ class _SignInPageState extends State<SignInPage> {
       ),
     ),
   );
+}
+*/
+// lib/main.dart
+//
+// * Firebase / Ads / カメラ初期化
+// * MultiProvider で Theme と 最新ダイアリーを共有
+// * MaterialApp は BabyBerryApp が 1 回だけ生成
+// ------------------------------------------------------
+
+import 'dart:async';                 // ← Zone, runZonedGuarded
+import 'dart:io';                    // ← File, FileMode
+import 'package:path_provider/path_provider.dart';  // ← getTemporaryDirectory
+
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+import 'package:camera/camera.dart';
+
+import 'firebase_options.dart';
+import 'cameras.dart';
+import 'pages/home_page.dart';           // ← Home 画面
+import 'pages/root_page.dart';
+import 'notifiers/theme_notifier.dart';    // ← ライト／ダーク切替
+import 'notifiers/latest_notifier.dart';
+import 'utils/logger.dart';             // ← ファイルログ
+import 'notifiers/theme_notifier.dart';
+
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final List<CameraDescription> cams = await availableCameras();
+  cameras = cams;                      // ← global 変数にセット
+
+
+  FlutterError.onError = (details) {
+    Zone.current.handleUncaughtError(details.exception, details.stack!);
+  };
+
+  runZonedGuarded(() async {
+    // ★ここに今までの初期化処理をそのまま書く
+    await initializeDateFormatting('ja');
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await MobileAds.instance.initialize();
+    cameras = await availableCameras();
+
+
+    //runApp(const BabyBerryApp());
+    runApp(
+      /// ここを MultiProvider でまとめて包む
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+          ChangeNotifierProvider(create: (_) => LatestNotifier()),
+        ],
+        child: const BabyBerryApp(),   // ← root ウィジェット名は自分のファイルと合わせて
+      ),
+    );
+
+
+  }, (e, st) async {
+    final dir = await getTemporaryDirectory();   // 端末内の一時フォルダ
+    final file = File('${dir.path}/fatal.log');  // fatal.log に追記
+    await file.writeAsString('$e\n$st\n\n', mode: FileMode.append);
+  });
+
+
+
+  /*
+  await initializeDateFormatting('ja');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await MobileAds.instance.initialize();
+
+  // ※ cameras は global 変数（lib/cameras.dart で宣言済み）
+  cameras = await availableCameras();
+
+  await Log.d('🚀 BabyBerry 起動');
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+        ChangeNotifierProvider(create: (_) => LatestNotifier()),
+      ],
+      child: const BabyBerryApp(),
+    ),
+  );
+  */
+}
+
+//──────────────────────────────────────────── BabyBerryApp
+class BabyBerryApp extends StatelessWidget {
+  const BabyBerryApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.watch<ThemeNotifier>();
+    return MaterialApp(
+      title: 'BabyBerry',
+      debugShowCheckedModeBanner: false,
+      //themeMode: theme.mode,
+      themeMode: context.watch<ThemeNotifier>().mode,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0xFFAF3F3F),
+        scaffoldBackgroundColor: const Color(0xFFFDF6F6),
+      ),
+      darkTheme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+      ),
+      home: const RootPage(),
+    );
+  }
 }

@@ -35,7 +35,7 @@ dependencies:
   firebase_core: ^2.27.3
   firebase_auth: ^4.17.6
   cloud_firestore: ^4.15.9
-  camera: ^0.10.5
+  camera: ^0.10.5+7
   http: ^0.13.6
   lottie: ^2.3.2
   intl: ^0.19.0          # ←日付表示に追加

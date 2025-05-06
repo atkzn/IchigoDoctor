@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 
 class StageStatusCard extends StatelessWidget {
@@ -51,3 +52,54 @@ class StageStatusCard extends StatelessWidget {
     );
   }
 }
+
+*/
+// lib/widgets/stage_status_card.dart
+import 'package:flutter/material.dart';
+
+class StageStatusCard extends StatelessWidget {
+  final Map<String, dynamic> data;
+  const StageStatusCard({super.key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Card(
+      margin: const EdgeInsets.all(0),
+      color: const Color(0xFFF2E9D8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Column(
+          children: [
+            Text(
+              '生育ステージ ${data['stage'] ?? '-'}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: cs.primary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            _row('🌱 生育日数',      data['growthDaysEst']),
+            _row('🌼 開花まであと',  data['daysToFlower']),
+            _row('🍓 収穫まであと',  data['daysToHarvest']),
+            _row('❤️ 状態',         data['growthStatus']),
+            _row('🏥 病気',         data['disease']),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _row(String label, String value) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(label),
+            Text(value, textAlign: TextAlign.right),
+          ],
+        ),
+      );
+}
+
