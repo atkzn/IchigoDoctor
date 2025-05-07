@@ -129,6 +129,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 12),
             StageStatusCard(d: d),
             AdviceCard(tips: List<String>.from(d['careTips'])),
+            const SizedBox(height: 12),
 
             // ── バナー広告 ──
             if (_bannerReady)

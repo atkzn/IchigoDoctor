@@ -17,10 +17,12 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Image.asset('assets/logo.png', height: 32),
               const Spacer(),
+              /*
               IconButton(
                 icon: const Icon(Icons.brightness_6),
                 onPressed: () => context.read<ThemeModel>().toggle(),
               ),
+              */
             ],
           ),
         ),
