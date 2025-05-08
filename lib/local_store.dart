@@ -1,24 +1,64 @@
+// lib/local_store.dart
+//
+// ❶ 必要なパッケージは path_provider だけ（既に pubspec.yaml に入っている）
+// ❷ 保存するのは「ステータス」と「careTips」の２つだけ
+//
+//   {
+//     "status": { stage, growthDaysEst, ... , disease },
+//     "careTips": ["水やり…", "追肥…", "ランナー…"]
+//   }
+
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 class LocalStore {
-  static const _key = 'lastResult';
+  static const _fileName = 'status.json';
 
-  /// 保存する
-  static Future<void> save(Map<String, dynamic> data) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(_key, jsonEncode(data));
+  // ---------------- SAVE ----------------
+  static Future<void> save(Map<String, dynamic> src) async {
+    final dir  = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/$_fileName');
+
+    final obj = {
+      'status': {
+        'stage'          : src['stage'],
+        'growthDaysEst'  : src['growthDaysEst'],
+        'daysToFlower'   : src['daysToFlower'],
+        'daysToHarvest'  : src['daysToHarvest'],
+        'growthStatus'   : src['growthStatus'],
+        'disease'        : src['disease'],
+      },
+      'careTips': src['careTips'] ?? [],
+    };
+
+    await file.writeAsString(jsonEncode(obj));
   }
 
-  /// 取り出す (なければ null)
+  // ---------------- LOAD ----------------
+  /// 保存が無い場合は null を返す
   static Future<Map<String, dynamic>?> load() async {
-    final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getString(_key);
-    if (raw == null) return null;
     try {
-      return jsonDecode(raw) as Map<String, dynamic>;
+      final dir  = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/$_fileName');
+      if (!await file.exists()) return null;
+
+      final obj = jsonDecode(await file.readAsString());
+
+      // HomePage に渡せる形へ復元して返す
+      return {
+        ...obj['status'] as Map<String, dynamic>,
+        'careTips': obj['careTips'] as List<dynamic>,
+      };
     } catch (_) {
-      return null;
+      return null; // 壊れたファイルは無視
     }
+  }
+
+  /// デバッグ用：保存データを消す
+  static Future<void> clear() async {
+    final dir  = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/$_fileName');
+    if (await file.exists()) await file.delete();
   }
 }
