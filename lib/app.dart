@@ -1,3 +1,5 @@
+
+/*
 // lib/app.dart
 
 import 'dart:convert';
@@ -266,6 +268,8 @@ class _CameraPageState extends State<CameraPage> {
       final today = DateTime.now();
       final stage = data['stage'] as String;
       final events = CareLogic.eventsForStage(stage, today);
+
+
       // 既存イベントをクリアしてから登録するなら、以下を事前に実行
       await CareRepo.clearAll();
       for (final e in events) {
@@ -388,63 +392,247 @@ class _CameraPageState extends State<CameraPage> {
         ),
       );
 }
+*/
 
-class StatusCard extends StatelessWidget {
-  final Map<String, dynamic> data;
-  const StatusCard({required this.data, super.key});
+
+// lib/app.dart
+
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+
+import 'cameras.dart';
+import 'notification_service.dart';
+import 'local_store.dart';
+import 'theme_model.dart';
+
+import 'services/care_logic.dart';         // ★ 追加
+import 'repositories/care_repo.dart';
+import 'models/care_event.dart';
+import 'repositories/diary_repo.dart';
+import 'models/diary.dart';
+
+import 'widgets/latest_header.dart';
+import 'widgets/stage_status_card.dart';
+import 'widgets/advice_card.dart';
+import 'widgets/color_nav.dart';
+import 'widgets/top_bar.dart';
+import 'pages/calendar_page.dart';
+import 'pages/tips_page.dart';
+import 'pages/setting_page.dart';
+
+class BerryApp extends StatelessWidget {
+  final Map<String, dynamic>? initialData;
+  const BerryApp({super.key, this.initialData});
+  @override
+  Widget build(BuildContext context) => RootPage(initialData: initialData);
+}
+
+// ---------------- RootPage --------------------------------------------------
+
+class RootPage extends StatefulWidget {
+  final Map<String, dynamic>? initialData;
+  const RootPage({super.key, this.initialData});
+  @override
+  State<RootPage> createState() => _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  int _index = 0;
+  Map<String, dynamic>? _last = null;
+
+  List<Widget> get _pages => [
+        HomePage(data: _last),
+        CameraPage(onResult: (r) {
+          setState(() {
+            _last = r;
+            _index = 0;
+          });
+        }),
+        const CalendarPage(),
+        const TipsPage(),
+        const SettingsPage(),
+      ];
 
   @override
-  Widget build(BuildContext context) => Card(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              _row('生育日数', '${data['growthDaysEst']}日'),
-              _row('開花まであと', data['daysToFlower']),
-              _row('収穫まであと', data['daysToHarvest']),
-              _row('状態', data['growthStatus']),
-              _row('病気', data['disease'],
-                  valueStyle: TextStyle(
-                    color: data['disease'] != 'なし' ? Colors.red : Colors.black,
-                    fontWeight: FontWeight.bold)
-                  ),
-            ],
-          ),
-        ),
-      );
-
-  Widget _row(String label, String value, {TextStyle? valueStyle}) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(label), Text(value)],
+  Widget build(BuildContext context) => Scaffold(
+        body: _pages[_index],
+        bottomNavigationBar: ColorNav(
+          index: _index,
+          onTap: (i) => setState(() => _index = i),
         ),
       );
 }
 
-class CareCard extends StatelessWidget {
-  final List<dynamic> careTips;
-  const CareCard({required this.careTips, super.key});
+// ---------------- HomePage --------------------------------------------------
+
+class HomePage extends StatelessWidget {
+  final Map<String, dynamic>? data;
+  const HomePage({super.key, this.data});
+
+  Map<String, dynamic> get _dummy => {
+        'growthDaysEst': '21-25',
+        'daysToFlower': '20-25',
+        'daysToHarvest': '35-45',
+        'growthStatus': '良好',
+        'disease': 'なし',
+        'careTips': ['水やり：土表面が乾いたら…', '追肥：液肥 1000 倍を週 1', 'ランナー整理：不要ランナーを切除']
+      };
 
   @override
-  Widget build(BuildContext context) => Card(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: careTips
-                .map((tip) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: Text('・$tip'),
-                    ))
-                .toList(),
-          ),
+  Widget build(BuildContext context) {
+    final d = data ?? _dummy;
+    return Scaffold(
+      appBar: const TopBar(),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        children: [
+          const LatestHeader(),
+          const SizedBox(height: 12),
+          StageStatusCard(d: d),
+          AdviceCard(tips: List<String>.from(d['careTips'])),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------- CameraPage ------------------------------------------------
+
+class CameraPage extends StatefulWidget {
+  final ValueChanged<Map<String, dynamic>> onResult;
+  const CameraPage({super.key, required this.onResult});
+  @override
+  State<CameraPage> createState() => _CameraPageState();
+}
+
+class _CameraPageState extends State<CameraPage> {
+  late CameraController ctrl;
+  bool busy = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ctrl = CameraController(cameras.first, ResolutionPreset.medium);
+    ctrl.initialize().then((_) => mounted ? setState(() {}) : null);
+  }
+
+  @override
+  void dispose() {
+    ctrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> classify() async {
+    if (busy) return;
+    setState(() => busy = true);
+
+    final xfile = await ctrl.takePicture();
+    final b64 = base64Encode(await xfile.readAsBytes());
+
+    final key = const String.fromEnvironment('GEMINI_KEY');
+    final uri =
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key';
+
+    // ① 画像付きリクエスト：ステージ判定などを取得
+    const prompt1 = '''
+画像を解析し、以下 JSON 形式のみ返してください。
+
+{ "stage":"S0〜S7", "growthDaysEst":"", "daysToFlower":"",
+  "daysToHarvest":"", "growthStatus":"良好／要注意／弱弱",
+  "disease":"なし または 病名", "careTips":[] }
+''';
+
+    final body1 = {
+      "contents": [
+        {
+          "parts": [
+            {"text": prompt1},
+            {"inlineData": {"mimeType": "image/jpeg", "data": b64}}
+          ]
+        }
+      ]
+    };
+
+    try {
+      final res1 = await http.post(Uri.parse(uri),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(body1));
+      final txt1 = jsonDecode(res1.body)
+          ['candidates'][0]['content']['parts'][0]['text'] as String;
+      final json1 =
+          txt1.substring(txt1.indexOf('{'), txt1.lastIndexOf('}') + 1);
+      final map = jsonDecode(json1) as Map<String, dynamic>;
+
+      // ② careTips を上書きするテキストのみリクエスト
+      final stage = map['stage'] as String? ?? 'S0';
+      final items = CareLogic.itemsForStage(stage).join('、');
+
+      final prompt2 = '''
+以下 JSON の "careTips" を、項目ごとに 1 行アドバイスへ上書きして返してください。
+必ず JSON のみ。項目: $items
+
+元 JSON:
+${jsonEncode(map)}
+''';
+
+      final res2 = await http.post(Uri.parse(uri),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            "contents": [
+              {
+                "parts": [
+                  {"text": prompt2}
+                ]
+              }
+            ]
+          }));
+      final txt2 = jsonDecode(res2.body)
+          ['candidates'][0]['content']['parts'][0]['text'] as String;
+      final json2 =
+          txt2.substring(txt2.indexOf('{'), txt2.lastIndexOf('}') + 1);
+      final data = jsonDecode(json2) as Map<String, dynamic>;
+
+      // ---- Diary 保存（写真パスだけ簡易保存） ----
+      await DiaryRepo.add(Diary(
+        id: DateTime.now().toIso8601String(),
+        image: xfile.path,
+        memo: '',
+      ));
+
+      await LocalStore.save(data);
+      widget.onResult(data);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('エラー: $e')));
+      }
+    } finally {
+      if (mounted) setState(() => busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text('撮影して診断')),
+        body: ctrl.value.isInitialized
+            ? Stack(children: [
+                CameraPreview(ctrl),
+                if (busy) const Center(child: CircularProgressIndicator()),
+              ])
+            : const Center(child: CircularProgressIndicator()),
+        floatingActionButton: FloatingActionButton(
+          onPressed: busy ? null : classify,
+          child: const Icon(Icons.camera_alt),
         ),
       );
 }
+

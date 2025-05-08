@@ -1,8 +1,6 @@
 // lib/services/care_logic.dart
-
+/*
 import '../models/care_event.dart';
-
-
 
 /// ステージごとに世話の間隔を定義
 class CareLogic {
@@ -45,5 +43,73 @@ class CareLogic {
     addEvent('pollination', cfg['pollination'] as int?);
 
     return out;
+  }
+}
+*/
+
+// lib/services/care_logic.dart
+//
+// ❶ 追加の import / パッケージは不要です。
+// ❷ 「フェーズ」「ステップ」はもう気にせず、stage(数字) に応じて
+//     “この３項目だけは Gemini で説明してほしい” という
+//     抽象化済みキーワードを返すユーティリティです。
+
+class CareLogic {
+  /// 「栽培ステージ番号」→「Gemini に渡す 3 項目リスト」
+  ///
+  /// ※ “追肥” や “水やり” など、抽象化したキーワードに統一
+  /// ※ 4,6,8,10 番台も独立ステップとして用意しました
+  static const Map<int, List<String>> careItems = {
+    // 0〜1：準備期
+    1: ['土壌改良', '畝立て', 'マルチ'],
+    // 2：植え付け
+    2: ['苗選び', '植え付け', '水やり'],
+    // 3：植え付け直後（浅植え→活着）
+    3: ['浅植え', '株間', '水やり'],
+    // 4：活着促進
+    4: ['活着管理', '水やり', '日射管理'],
+    // 5：初期生育（追肥開始）
+    5: ['追肥', 'ランナー除去', '病害虫観察'],
+    // 6：生育中期
+    6: ['追肥', '葉整理', '水やり'],
+    // 7：開花準備〜開花
+    7: ['追肥', '水やり', '温度管理'],
+    // 8：受粉
+    8: ['受粉', '雨対策', '水やり'],
+    // 9：幼果肥大
+    9: ['追肥', '摘果', '水やり'],
+    // 10：果実肥大・成熟
+    10:['敷きわら', '鳥害対策', '水やり'],
+    // 11：収穫
+    11:['収穫', '収穫方法', '水やり'],
+    // 12：収穫後
+    12:['追肥', '病害虫管理', '株整理'],
+  };
+
+  /// 受け取った "S3" のような stage 文字列を → 数字だけ抜き出す
+  static int _stageNum(String stage) =>
+      int.tryParse(stage.replaceAll(RegExp('[^0-9]'), '')) ?? 0;
+
+  /// stageNum を 1〜12 の “区分” へ丸め込む
+  static int _normalize(int num) {
+    if (num <= 1)  return 1;
+    if (num == 2)  return 2;
+    if (num == 3)  return 3;
+    if (num == 4)  return 4;
+    if (num == 5)  return 5;
+    if (num == 6)  return 6;
+    if (num == 7)  return 7;
+    if (num == 8)  return 8;
+    if (num == 9)  return 9;
+    if (num == 10) return 10;
+    if (num == 11) return 11;
+    return 12; // 12 以降は “収穫後の管理”
+  }
+
+  /// 外から呼ぶのはコレだけ：
+  ///   CareLogic.itemsForStage(map['stage'])
+  static List<String> itemsForStage(String stage) {
+    final key = _normalize(_stageNum(stage));
+    return careItems[key] ?? ['水やり', '追肥', '観察']; // フォールバック
   }
 }

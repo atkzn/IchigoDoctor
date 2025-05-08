@@ -18,6 +18,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               Image.asset('assets/logo.png', height: 32),
               const Spacer(),
               /*
+              // dark mode icon
               IconButton(
                 icon: const Icon(Icons.brightness_6),
                 onPressed: () => context.read<ThemeModel>().toggle(),
