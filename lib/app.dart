@@ -1,5 +1,5 @@
 
-/*
+
 // lib/app.dart
 
 import 'dart:convert';
@@ -46,6 +46,7 @@ class BerryApp extends StatelessWidget {
   }
 }
 
+// ---------------- RootPage --------------------------------------------------
 
 class RootPage extends StatefulWidget {
   final Map<String, dynamic>? initialData;
@@ -82,6 +83,8 @@ class _RootPageState extends State<RootPage> {
         ),
       );
 }
+
+// ---------------- HomePage --------------------------------------------------
 
 class HomePage extends StatefulWidget {
   final Map<String, dynamic>? data;
@@ -168,6 +171,8 @@ class _HomePageState extends State<HomePage> {
 
 }
 
+// ---------------- CameraPage ------------------------------------------------
+
 class CameraPage extends StatefulWidget {
   final ValueChanged<Map<String, dynamic>> onResult;
   const CameraPage({Key? key, required this.onResult}) : super(key: key);
@@ -237,11 +242,16 @@ class _CameraPageState extends State<CameraPage> {
   "daysToHarvest":"例 35-45",
   "growthStatus":"良好／要注意／弱弱",
   "disease":"なし または 疑わしい病名",
-  "careTips":["水やり…","追肥…","ランナー整理…"]
+   "careTips":[]
 }
 
 実際の画像をよく観察して、値を当てはめてください。
 ''';
+
+/*
+  "careTips":["水やり…","追肥…","ランナー整理…"]
+
+*/
 
     final body = {
       "contents": [
@@ -262,11 +272,44 @@ class _CameraPageState extends State<CameraPage> {
       final txt =
           raw['candidates'][0]['content']['parts'][0]['text'] as String;
       final jsonStr = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
-      final data = json.decode(jsonStr) as Map<String, dynamic>;
+      //final data = json.decode(jsonStr) as Map<String, dynamic>;
+      final map = jsonDecode(jsonStr) as Map<String, dynamic>;
+      
+      // ② careTips を上書きするテキストのみリクエスト
+      final stage = map['stage'] as String? ?? 'S0';
+      final items = CareLogic.itemsForStage(stage).join('、');
+
+
+      final prompt2 = '''
+以下 JSON の "careTips" を、項目ごとに 1 行アドバイスへ上書きして返してください。
+必ず JSON のみ。項目: $items
+
+元 JSON:
+${jsonEncode(map)}
+''';
+
+      final res2 = await http.post(Uri.parse(uri),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            "contents": [
+              {
+                "parts": [
+                  {"text": prompt2}
+                ]
+              }
+            ]
+          }));
+      final txt2 = jsonDecode(res2.body)
+          ['candidates'][0]['content']['parts'][0]['text'] as String;
+      final json2 =
+          txt2.substring(txt2.indexOf('{'), txt2.lastIndexOf('}') + 1);
+      final data = jsonDecode(json2) as Map<String, dynamic>;
+
+
 
 
       final today = DateTime.now();
-      final stage = data['stage'] as String;
+      //final stage = data['stage'] as String;
       final events = CareLogic.eventsForStage(stage, today);
 
 
@@ -288,8 +331,8 @@ class _CameraPageState extends State<CameraPage> {
       }
 
 
-
-      await LocalStore.save(data);
+      await LocalStore.save(map);
+      //await LocalStore.save(data);
 
       // ── 写真を Diary に保存して最新ヘッダに反映 ──
       await DiaryRepo.add(Diary(
@@ -392,8 +435,11 @@ class _CameraPageState extends State<CameraPage> {
         ),
       );
 }
-*/
 
+
+/*
+
+//////////////////////////////////////////////////////////////////////////////
 
 // lib/app.dart
 
@@ -635,4 +681,4 @@ ${jsonEncode(map)}
         ),
       );
 }
-
+*/
