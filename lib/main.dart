@@ -42,6 +42,8 @@ Future<void> main() async {
 
   // 🔽 起動時に保存済みデータを読み込む
   final saved = await LocalStore.load();
+debugPrint('LOADED => $saved');
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeModel(),

@@ -356,6 +356,8 @@ ${jsonEncode(map)}
         parameters: {'result_stage': data['stage']},
       );
 
+
+
       widget.onResult(data);
     } catch (e) {
       if (mounted) {

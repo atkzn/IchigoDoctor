@@ -110,3 +110,4 @@ class CareLogic {
     return careItems[key] ?? ['水やり', '追肥', '観察']; // フォールバック
   }
 }
+

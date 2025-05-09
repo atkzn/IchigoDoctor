@@ -11,6 +11,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
+
 
 class LocalStore {
   static const _fileName = 'status.json';
@@ -41,16 +43,27 @@ class LocalStore {
     try {
       final dir  = await getApplicationDocumentsDirectory();
       final file = File('${dir.path}/$_fileName');
-      if (!await file.exists()) return null;
 
-      final obj = jsonDecode(await file.readAsString());
+//debugPrint('[LS] looking for => ${file.path}');
 
+
+      if (!await file.exists()) {
+        debugPrint('[LS] file NOT found');
+        return null;
+      }
+
+      final raw = await file.readAsString();
+//debugPrint('[LS] raw json => $raw');
+
+
+      final obj = jsonDecode(raw);
       // HomePage に渡せる形へ復元して返す
       return {
         ...obj['status'] as Map<String, dynamic>,
         'careTips': obj['careTips'] as List<dynamic>,
       };
-    } catch (_) {
+    } catch (e, st) {
+      debugPrint('[LS] load error => $e\n$st'); 
       return null; // 壊れたファイルは無視
     }
   }
