@@ -1,58 +1,4 @@
 /*
-import 'dart:io';
-import 'package:flutter/material.dart';
-import '../models/diary.dart';
-import '../repositories/diary_repo.dart';
-
-class DiaryPage extends StatelessWidget {
-  const DiaryPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Diary>>(
-      future: DiaryRepo.load(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          // 読み込み中
-          return Scaffold(
-            appBar: AppBar(title: const Text('Diary')),
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
-
-        final list = snapshot.data!;
-        return Scaffold(
-          appBar: AppBar(title: const Text('Diary')),    // ★ 同じく修正
-          body: list.isEmpty
-              ? const Center(child: Text('まだ記録がありません'))
-              : ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (context, i) {
-                    final d = list[i];
-                    return ListTile(
-                      leading: Image.file(               // ← File が使える
-                        File(d.image),
-                        width: 56,
-                        height: 56,
-                        fit: BoxFit.cover,
-                      ),
-                      title: Text(d.memo),
-                      subtitle: Text(
-                        DateTime.parse(d.id)
-                            .toLocal()
-                            .toString()
-                            .substring(0, 16), // yyyy-MM-dd HH:mm
-                      ),
-                    );
-                  },
-                ),
-        );
-      },
-    );
-  }
-}
-*/
-
 // lib/pages/diary_page.dart
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -142,6 +88,140 @@ class _DiaryCard extends StatelessWidget {
   }
 }
 
+class _DetailPage extends StatelessWidget {
+  final Diary diary;
+  const _DetailPage({required this.diary});
+
+  @override
+  Widget build(BuildContext context) {
+    final dt = DateTime.tryParse(diary.id);
+    final dateStr =
+        dt != null ? DateFormat('yyyy/MM/dd HH:mm').format(dt) : diary.id;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Detail')),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Image.file(File(diary.image)),
+          const SizedBox(height: 12),
+          Text(dateStr, style: Theme.of(context).textTheme.bodySmall),
+          const SizedBox(height: 8),
+          Text(diary.memo.isNotEmpty ? diary.memo : '(メモなし)'),
+        ],
+      ),
+    );
+  }
+}
+*/
+
+// lib/pages/diary_page.dart
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../models/diary.dart';
+import '../repositories/diary_repo.dart';
+
+/// ─────────────────────────────────────────────
+/// 「撮影履歴」を 3 列グリッドで表示するページ
+/// ─────────────────────────────────────────────
+class DiaryPage extends StatelessWidget {
+  const DiaryPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Diary')),
+      body: FutureBuilder<List<Diary>>(
+        future: DiaryRepo.all(),
+        builder: (context, snap) {
+          if (snap.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final list = snap.data ?? [];
+          if (list.isEmpty) {
+            return const Center(child: Text('まだ履歴がありません'));
+          }
+          // id(ISO文字列) を新しい順に
+          list.sort((a, b) =>
+              DateTime.parse(b.id).compareTo(DateTime.parse(a.id)));
+
+          return GridView.builder(
+            padding: const EdgeInsets.all(4),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,          // ★ 3 列
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+              childAspectRatio: 0.75,     // 画像 : テキスト ≒ 4 : 1
+            ),
+            itemCount: list.length,
+            itemBuilder: (_, i) => _DiaryTile(diary: list[i]),
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// 1 タイル＝サムネ画像 + 日付 + メモ
+class _DiaryTile extends StatelessWidget {
+  final Diary diary;
+  const _DiaryTile({required this.diary});
+
+  @override
+  Widget build(BuildContext context) {
+    final dt = DateTime.tryParse(diary.id);
+    final dateStr =
+        dt != null ? DateFormat('MM/dd').format(dt) : diary.id; // 下部に小さく
+
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => _DetailPage(diary: diary)),
+      ),
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 2,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ── サムネ画像 ──
+            Expanded(
+              child: Image.file(
+                File(diary.image),
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            // ── 日付 & メモ ──
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(dateStr,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelSmall
+                          ?.copyWith(color: Colors.grey)),
+                  Text(
+                    diary.memo.isNotEmpty ? diary.memo : '(メモなし)',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// 詳細ページはそのまま流用
 class _DetailPage extends StatelessWidget {
   final Diary diary;
   const _DetailPage({required this.diary});
