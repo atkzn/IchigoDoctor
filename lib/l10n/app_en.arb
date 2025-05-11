@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "MyLitteleBerry",
+  "appTitle": "StrawberryDoctor",
   "homeToday": "Today is {day} days!",
   "waterReminder": "Watering Reminder set at {time}"
 }
