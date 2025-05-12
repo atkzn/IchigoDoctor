@@ -310,7 +310,6 @@ ${jsonEncode(map)}
 
 
       final today = DateTime.now();
-      //final stage = data['stage'] as String;
       final events = CareLogic.eventsForStage(stage, today);
 
 
@@ -332,15 +331,16 @@ ${jsonEncode(map)}
       }
 
 
-      //await LocalStore.save(map);
       await LocalStore.save(data);
 
+      /*
       // ── 写真を Diary に保存して最新ヘッダに反映 ──
       await DiaryRepo.add(Diary(
         id: DateTime.now().toIso8601String(),
         image: xfile.path,
         memo: '',
       ));
+      */
 
       final memo = await _askMemo();       // ユーザーにメモ入力を求める
       if (memo != null && memo.isNotEmpty) {
