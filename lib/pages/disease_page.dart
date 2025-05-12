@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import '../repositories/diary_repo.dart';
 import '../models/diary.dart';
 import '../cameras.dart';      // global cameras = await availableCameras()
+import '../camera_manager.dart';
+
 
 class DiseasePage extends StatefulWidget {
   const DiseasePage({super.key});
@@ -21,16 +23,22 @@ class _DiseasePageState extends State<DiseasePage> {
   late CameraController ctrl;
   bool busy = false;
 
+  // ③ controller を外から参照できるように（追加）
+  CameraController get controller => ctrl;
+
+
   @override
   void initState() {
     super.initState();
     ctrl = CameraController(cameras.first, ResolutionPreset.medium);
+    CameraManager.controller = ctrl;
     ctrl.initialize().then((_) => mounted ? setState(() {}) : null);
   }
 
   @override
   void dispose() {
     ctrl.dispose();
+    CameraManager.controller = null;
     super.dispose();
   }
 

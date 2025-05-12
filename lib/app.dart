@@ -35,6 +35,7 @@ import 'widgets/top_bar.dart';
 import 'widgets/advice_card.dart';
 import 'widgets/color_nav.dart';
 import 'pages/disease_page.dart';
+import 'camera_manager.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -58,6 +59,31 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int _index = 0;
+
+  // ① タブを安全に切り替えるメソッド（追加）
+  Future<void> _safeSwitch(int target) async {
+    // 現在表示中のページを取得
+    final current = _pages[_index];
+
+    // カメラを使うページだったら controller.dispose() 完了を待つ
+    if (current is CameraPage) {
+      // カメラがまだ開放されていれば完了を待つ
+      if (CameraManager.controller != null) {
+        await CameraManager.controller!.dispose();
+        CameraManager.controller = null;
+      }
+    } else if (current is DiseasePage) {
+      // カメラがまだ開放されていれば完了を待つ
+      if (CameraManager.controller != null) {
+        await CameraManager.controller!.dispose();
+        CameraManager.controller = null;
+      }
+    }
+
+    // ページを実際に切り替え
+    if (mounted) setState(() => _index = target);
+  }
+
   late Map<String, dynamic>? _lastResult = widget.initialData;
 
   List<Widget> get _pages => [
@@ -82,7 +108,8 @@ class _RootPageState extends State<RootPage> {
         body: _pages[_index],
         bottomNavigationBar: ColorNav(
           index: _index,
-          onTap: (i) => setState(() => _index = i),
+          //onTap: (i) => setState(() => _index = i),
+          onTap: (i) => _safeSwitch(i),
         ),
       );
 }
@@ -189,6 +216,9 @@ class _CameraPageState extends State<CameraPage> {
   late CameraController ctrl;
   bool busy = false;
 
+  // ② controller を外から参照できるように（追加）
+  CameraController get controller => ctrl;
+
   @override
   void initState() {
     super.initState();
@@ -199,12 +229,14 @@ class _CameraPageState extends State<CameraPage> {
       return;
     }
     ctrl = CameraController(cameras.first, ResolutionPreset.medium);
+    CameraManager.controller = ctrl;
     ctrl.initialize().then((_) => mounted ? setState(() {}) : null);
   }
 
   @override
   void dispose() {
     ctrl.dispose();
+    CameraManager.controller = null;
     super.dispose();
   }
 
