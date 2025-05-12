@@ -1,74 +1,84 @@
-**Privacy Policy**
+# プライバシーポリシー
 
-This privacy policy applies to the BabyBerry app (hereby referred to as "Application") for mobile devices that was created by devname (hereby referred to as "Service Provider") as an Ad Supported service. This service is intended for use "AS IS".
+本プライバシーポリシーは、Atsushi Kazuno（以下「サービス提供者」）が広告付きサービスとして提供するモバイルアプリ **「いちごドクター」**（以下「本アプリ」）に適用されます。本サービスは **現状有姿（AS IS）** で提供されます。
 
-**Information Collection and Use**
+---
 
-The Application collects information when you download and use it. This information may include information such as
+## 1. 情報の収集と利用
 
-*   Your device's Internet Protocol address (e.g. IP address)
-*   The pages of the Application that you visit, the time and date of your visit, the time spent on those pages
-*   The time spent on the Application
-*   The operating system you use on your mobile device
+本アプリは、ダウンロードおよびご利用時に以下の情報を収集する場合があります。
 
-The Application does not gather precise information about the location of your mobile device.
+- ご利用端末のインターネットプロトコルアドレス（IP アドレス）
+- 本アプリ内で閲覧したページ、アクセス日時、各ページでの滞在時間
+- 本アプリ全体での利用時間
+- ご利用端末のオペレーティングシステム
 
-The Application collects your device's location, which helps the Service Provider determine your approximate geographical location and make use of in below ways:
+> **位置情報について**  
+> 本アプリは端末の正確な位置情報（GPS など）を取得することはありませんが、おおよその位置情報を取得する場合があります。取得した位置情報は以下の目的で利用されます。  
+> 
+> - **ジオロケーション機能** — おすすめコンテンツや位置情報を利用したサービス提供のため  
+> - **分析および品質向上** — 匿名化された位置データを用いて利用状況を把握し、機能改善に役立てるため  
+> - **外部サービス連携** — 匿名化された位置情報を第三者サービスに送信し、アプリの最適化を図るため
 
-*   Geolocation Services: The Service Provider utilizes location data to provide features such as personalized content, relevant recommendations, and location-based services.
-*   Analytics and Improvements: Aggregated and anonymized location data helps the Service Provider to analyze user behavior, identify trends, and improve the overall performance and functionality of the Application.
-*   Third-Party Services: Periodically, the Service Provider may transmit anonymized location data to external services. These services assist them in enhancing the Application and optimizing their offerings.
+サービス提供者は、ユーザーの電子メールアドレスやユーザー ID など、本人を特定できる情報を求める場合があります。これらの情報は本プライバシーポリシーに従い保持・利用されます。
 
-The Service Provider may use the information you provided to contact you from time to time to provide you with important information, required notices and marketing promotions.
+---
 
-For a better experience, while using the Application, the Service Provider may require you to provide us with certain personally identifiable information, including but not limited to Email, userid. The information that the Service Provider request will be retained by them and used as described in this privacy policy.
+## 2. 第三者への情報提供
 
-**Third Party Access**
+サービス提供者は、アプリの改善およびサービス向上を目的として、匿名化・集約されたデータを定期的に第三者サービスに送信する場合があります。利用中の第三者サービスのプライバシーポリシーは以下をご参照ください。
 
-Only aggregated, anonymized data is periodically transmitted to external services to aid the Service Provider in improving the Application and their service. The Service Provider may share your information with third parties in the ways that are described in this privacy statement.
+- [Google Play Services](https://www.google.com/policies/privacy/)
+- [AdMob](https://support.google.com/admob/answer/6128543?hl=ja)
+- [Google Analytics for Firebase](https://firebase.google.com/support/privacy)
+- [Firebase Crashlytics](https://firebase.google.com/support/privacy)
 
-Please note that the Application utilizes third-party services that have their own Privacy Policy about handling data. Below are the links to the Privacy Policy of the third-party service providers used by the Application:
+サービス提供者は、以下の場合にユーザー提供情報および自動収集情報を開示することがあります。
 
-*   [Google Play Services](https://www.google.com/policies/privacy/)
-*   [AdMob](https://support.google.com/admob/answer/6128543?hl=en)
-*   [Google Analytics for Firebase](https://firebase.google.com/support/privacy)
-*   [Firebase Crashlytics](https://firebase.google.com/support/privacy/)
+1. 法令に基づく場合（例：召喚状への対応など）  
+2. サービス提供者または第三者の権利・安全を保護するために必要な場合  
+3. サービス提供者の業務委託先が本プライバシーポリシーに従い情報を取り扱う場合  
 
-The Service Provider may disclose User Provided and Automatically Collected Information:
+---
 
-*   as required by law, such as to comply with a subpoena, or similar legal process;
-*   when they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;
-*   with their trusted services providers who work on their behalf, do not have an independent use of the information we disclose to them, and have agreed to adhere to the rules set forth in this privacy statement.
+## 3. オプトアウト（情報収集の停止）
 
-**Opt-Out Rights**
+ユーザーは、本アプリをアンインストールすることで、アプリによる情報収集を停止できます。
 
-You can stop all collection of information by the Application easily by uninstalling it. You may use the standard uninstall processes as may be available as part of your mobile device or via the mobile application marketplace or network.
+---
 
-**Data Retention Policy**
+## 4. データ保持ポリシー
 
-The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. If you'd like them to delete User Provided Data that you have provided via the Application, please contact them at testtesttestte@gmail.com and they will respond in a reasonable time.
+サービス提供者は、ユーザーが本アプリを利用している期間および合理的に必要と判断される期間、ユーザー提供情報を保持します。削除を希望される場合は `dadand.kikai@gmail.com` までご連絡ください。
 
-**Children**
+---
 
-The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13.
+## 5. 子どもに関するプライバシー
 
-The Application does not address anyone under the age of 13. The Service Provider does not knowingly collect personally identifiable information from children under 13 years of age. In the case the Service Provider discover that a child under 13 has provided personal information, the Service Provider will immediately delete this from their servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact the Service Provider (testtesttestte@gmail.com) so that they will be able to take the necessary actions.
+本アプリは 13 歳未満の児童を対象としておらず、サービス提供者は 13 歳未満の児童から意図的に個人情報を取得しません。13 歳未満のお子様が個人情報を提供したことが判明した場合には、速やかにサーバーから削除します。保護者の方でお子様の情報提供を把握された場合は `dadand.kikai@gmail.com` までご連絡ください。
 
-**Security**
+---
 
-The Service Provider is concerned about safeguarding the confidentiality of your information. The Service Provider provides physical, electronic, and procedural safeguards to protect information the Service Provider processes and maintains.
+## 6. セキュリティ
 
-**Changes**
+サービス提供者は、ユーザー情報の機密性を保護するため、物理的・電子的・手続き上の安全対策を講じています。
 
-This Privacy Policy may be updated from time to time for any reason. The Service Provider will notify you of any changes to the Privacy Policy by updating this page with the new Privacy Policy. You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.
+---
 
-This privacy policy is effective as of 2025-04-29
+## 7. プライバシーポリシーの変更
 
-**Your Consent**
+本プライバシーポリシーは、必要に応じて改定されることがあります。変更の際は本ページを更新し、お知らせします。最新の内容をご確認ください。
 
-By using the Application, you are consenting to the processing of your information as set forth in this Privacy Policy now and as amended by us.
+**改定日:** 2025-04-29
 
-**Contact Us**
+---
 
-If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at testtesttestte@gmail.com.
+## 8. 同意
 
+ユーザーが本アプリを利用することで、本プライバシーポリシーに記載された情報の取り扱いに同意したものとみなされます。
+
+---
+
+## 9. お問い合わせ
+
+プライバシーに関するご質問は `dadand.kikai@gmail.com` までご連絡ください。

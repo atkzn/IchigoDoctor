@@ -1,37 +1,79 @@
-**Terms & Conditions**  
+# 利用規約
 
-These terms and conditions apply to the BabyBerry app (hereby referred to as "Application") for mobile devices that was created by devname (hereby referred to as "Service Provider") as an Ad Supported service.
+本利用規約（以下「本規約」）は、Atsushi Kazuno（以下「サービス提供者」）が広告付きサービスとして提供するモバイルアプリ **「いちごドクター」**（以下「本アプリ」）に適用されます。本アプリをダウンロードまたは利用することで、ユーザーは本規約に同意したものとみなされます。
 
-Upon downloading or utilizing the Application, you are automatically agreeing to the following terms. It is strongly advised that you thoroughly read and understand these terms prior to using the Application. Unauthorized copying, modification of the Application, any part of the Application, or our trademarks is strictly prohibited. Any attempts to extract the source code of the Application, translate the Application into other languages, or create derivative versions are not permitted. All trademarks, copyrights, database rights, and other intellectual property rights related to the Application remain the property of the Service Provider.
+---
 
-The Service Provider is dedicated to ensuring that the Application is as beneficial and efficient as possible. As such, they reserve the right to modify the Application or charge for their services at any time and for any reason. The Service Provider assures you that any charges for the Application or its services will be clearly communicated to you.
+## 1. 知的財産権
 
-The Application stores and processes personal data that you have provided to the Service Provider in order to provide the Service. It is your responsibility to maintain the security of your phone and access to the Application. The Service Provider strongly advise against jailbreaking or rooting your phone, which involves removing software restrictions and limitations imposed by the official operating system of your device. Such actions could expose your phone to malware, viruses, malicious programs, compromise your phone's security features, and may result in the Application not functioning correctly or at all.
+- 本アプリおよびその一部（ソースコード、画像、ロゴ、商標など）に関するすべての著作権、商標権、データベース権その他の知的財産権は、サービス提供者に帰属します。  
+- 本アプリを無断でコピー、改変、リバースエンジニアリング、翻訳、派生物の作成等を行うことは禁止されています。
 
-Please note that the Application utilizes third-party services that have their own Terms and Conditions. Below are the links to the Terms and Conditions of the third-party service providers used by the Application:
+---
 
-*   [Google Play Services](https://policies.google.com/terms)
-*   [AdMob](https://developers.google.com/admob/terms)
-*   [Google Analytics for Firebase](https://www.google.com/analytics/terms/)
-*   [Firebase Crashlytics](https://firebase.google.com/terms/crashlytics)
+## 2. アプリの変更・料金
 
-Please be aware that the Service Provider does not assume responsibility for certain aspects. Some functions of the Application require an active internet connection, which can be Wi-Fi or provided by your mobile network provider. The Service Provider cannot be held responsible if the Application does not function at full capacity due to lack of access to Wi-Fi or if you have exhausted your data allowance.
+- サービス提供者は、本アプリまたは提供サービスの全部または一部を、事前の予告なく変更・中断・終了する権利を有します。  
+- 有料サービスを導入する場合は、料金を明示し、ユーザーの同意を得た上で課金を行います。
 
-If you are using the application outside of a Wi-Fi area, please be aware that your mobile network provider's agreement terms still apply. Consequently, you may incur charges from your mobile provider for data usage during the connection to the application, or other third-party charges. By using the application, you accept responsibility for any such charges, including roaming data charges if you use the application outside of your home territory (i.e., region or country) without disabling data roaming. If you are not the bill payer for the device on which you are using the application, they assume that you have obtained permission from the bill payer.
+---
 
-Similarly, the Service Provider cannot always assume responsibility for your usage of the application. For instance, it is your responsibility to ensure that your device remains charged. If your device runs out of battery and you are unable to access the Service, the Service Provider cannot be held responsible.
+## 3. 個人データの取扱い
 
-In terms of the Service Provider's responsibility for your use of the application, it is important to note that while they strive to ensure that it is updated and accurate at all times, they do rely on third parties to provide information to them so that they can make it available to you. The Service Provider accepts no liability for any loss, direct or indirect, that you experience as a result of relying entirely on this functionality of the application.
+- 本アプリは、サービス提供のためにユーザーが入力した個人データを保存・処理します。  
+- 詳細は [プライバシーポリシー](./privacy_policy.md) を参照してください。
 
-The Service Provider may wish to update the application at some point. The application is currently available as per the requirements for the operating system (and for any additional systems they decide to extend the availability of the application to) may change, and you will need to download the updates if you want to continue using the application. The Service Provider does not guarantee that it will always update the application so that it is relevant to you and/or compatible with the particular operating system version installed on your device. However, you agree to always accept updates to the application when offered to you. The Service Provider may also wish to cease providing the application and may terminate its use at any time without providing termination notice to you. Unless they inform you otherwise, upon any termination, (a) the rights and licenses granted to you in these terms will end; (b) you must cease using the application, and (if necessary) delete it from your device.
+---
 
-**Changes to These Terms and Conditions**
+## 4. セキュリティと端末管理
 
-The Service Provider may periodically update their Terms and Conditions. Therefore, you are advised to review this page regularly for any changes. The Service Provider will notify you of any changes by posting the new Terms and Conditions on this page.
+- ユーザーは、端末および本アプリへのアクセスを適切に管理する責任を負います。  
+- 端末の **ジェイルブレイク** や **ルート化** は推奨されません。これにより端末がマルウェア等に感染し、本アプリが正常に機能しなくなる恐れがあります。
 
-These terms and conditions are effective as of 2025-04-29
+---
 
-**Contact Us**
+## 5. 第三者サービスの利用規約
 
-If you have any questions or suggestions about the Terms and Conditions, please do not hesitate to contact the Service Provider at testtesttestte@gmail.com.
+本アプリは以下の第三者サービスを利用しており、それぞれの利用規約が適用されます。必ずご確認ください。
 
+- [Google Play Services](https://policies.google.com/terms)  
+- [AdMob](https://developers.google.com/admob/terms)  
+- [Google Analytics for Firebase](https://www.google.com/analytics/terms/)  
+- [Firebase Crashlytics](https://firebase.google.com/terms/crashlytics)
+
+---
+
+## 6. インターネット接続と料金
+
+- 本アプリの一部機能は、Wi-Fi またはモバイルデータ通信によるインターネット接続を必要とします。接続環境がない場合、本アプリが正常に動作しない場合があります。  
+- モバイルデータ通信を利用する際の通信料金（ローミング料金を含む）は、ユーザーが負担するものとします。
+
+---
+
+## 7. 免責事項
+
+- サービス提供者は、本アプリの情報が常に最新かつ正確であるよう努めますが、第三者から提供される情報に依存する部分があるため、その完全性を保証しません。  
+- 本アプリの使用または使用不能から生じたいかなる損失・損害に対しても、サービス提供者は責任を負いません。  
+- 端末のバッテリー切れ等、ユーザー側の事情に起因する損害についても同様です。
+
+---
+
+## 8. アプリのアップデートおよび提供終了
+
+- 本アプリは OS のバージョンに応じて更新される場合があります。ユーザーは提示されたアップデートを受け入れるものとします。  
+- サービス提供者は、本アプリの提供を終了する権利を有します。終了時には、ユーザーは本アプリの使用を停止し、必要に応じて端末から削除してください。
+
+---
+
+## 9. 規約の変更
+
+- サービス提供者は、必要に応じて本規約を改定することがあります。変更後の規約は、本ページに掲載された時点で効力を生じます。  
+- 重要な変更を行う場合は、本アプリまたはウェブサイト上でユーザーに通知します。
+
+**最終改定日:** 2025-04-29
+
+---
+
+## 10. お問い合わせ
+
+本規約に関するご質問・ご意見は、`dadand.kikai@gmail.com` までご連絡ください。
