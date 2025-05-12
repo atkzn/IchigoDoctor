@@ -34,6 +34,7 @@ import 'widgets/stage_status_card.dart';
 import 'widgets/top_bar.dart';
 import 'widgets/advice_card.dart';
 import 'widgets/color_nav.dart';
+import 'pages/disease_page.dart';
 
 
 class BerryApp extends StatelessWidget {
@@ -69,8 +70,9 @@ class _RootPageState extends State<RootPage> {
         }),
         
         //const CalendarPage(), // Dairy
+        DiseasePage(),
         const DiaryPage(),
-        const TipsPage(), // Tips
+        //const TipsPage(), // Tips
         //const Placeholder(), // Shop
         const SettingsPage(), // Setting
       ];
