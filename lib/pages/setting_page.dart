@@ -5,9 +5,9 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   static final _privacyUrl = Uri.parse(
-      'https://atkzn.github.io/flutter_application_1/privacy_policy');
+      'https://atkzn.github.io/IchigoDoctor/privacy_policy');
   static final _termsUrl   = Uri.parse(
-      'https://atkzn.github.io/flutter_application_1/terms_of_service');
+      'https://atkzn.github.io/IchigoDoctor/terms_of_service');
 
   @override
   Widget build(BuildContext context) => Scaffold(
