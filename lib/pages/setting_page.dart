@@ -6,9 +6,9 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   static final _privacyUrl = Uri.parse(
-      'https://atkzn.github.io/IchigoDoctor/privacy_policy');
+      'https://dadand-kikai.github.io/IchigoDoctor/privacy_policy');
   static final _termsUrl   = Uri.parse(
-      'https://atkzn.github.io/IchigoDoctor/terms_of_service');
+      'https://dadand-kikai.github.io/IchigoDoctor/terms_of_service');
 
   @override
   Widget build(BuildContext context) => Scaffold(
