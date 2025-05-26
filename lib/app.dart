@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'cameras.dart';  // ← cameras.dart の cameras を参照
 import 'notification_service.dart';
 import 'local_store.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_application_1/generated/l10n/app_localizations.dart'; // 新しいパスとファイル名
 import 'package:provider/provider.dart';
 import 'theme_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
