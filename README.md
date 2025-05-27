@@ -1,2 +1,2 @@
-# flutter_application_1
+# ichigodoctor_app
 

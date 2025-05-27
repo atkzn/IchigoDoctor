@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:849655606704:android:eeb4ffd1376f9c588c7a75",
         "android_client_info": {
-          "package_name": "com.example.flutter_application_1"
+          "package_name": "com.github.dadandkikai.ichigodoctor"
         }
       },
       "oauth_client": [
@@ -29,6 +29,49 @@
             {
               "client_id": "849655606704-t56apnkb6bu9lsfunhtqmq1c9a5cbfdq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "849655606704-tpavdf475n3u9qmic9kq68h8lc98guca.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.github.dadandkikai.ichigodoctor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849655606704:android:c09364a2edf1a0e18c7a75",
+        "android_client_info": {
+          "package_name": "com.github.dadandkikai.ichigodoctor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849655606704-t56apnkb6bu9lsfunhtqmq1c9a5cbfdq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWB-7KBmvRgwDxAOKlfNmCJaxn-nzU6cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849655606704-t56apnkb6bu9lsfunhtqmq1c9a5cbfdq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "849655606704-tpavdf475n3u9qmic9kq68h8lc98guca.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterApplication1"
+              }
             }
           ]
         }

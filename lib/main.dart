@@ -14,7 +14,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_application_1/generated/l10n/app_localizations.dart'; // 新しいパスとファイル名
+import 'package:ichigodoctor_app/generated/l10n/app_localizations.dart'; // 新しいパスとファイル名
 import 'theme_model.dart';          // ← Step3 で作成したファイル
 import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
